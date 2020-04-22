@@ -6,12 +6,10 @@ public class CalcABS {
 	int num1;
 	int num2;
 	
- void changeABS(int a, int b) {
+ public void changeABS(int a, int b) {
 	a = Math.abs(num1);
 	b = Math.abs(num2);
-}
-void result() {
-	
+	System.out.println("num1의 절대값 : " + a + "\n" + "num2의 절대값 : " + b);
 }
 
 	

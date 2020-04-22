@@ -13,6 +13,6 @@ public class CalcABS_UI {
 
 		
 		//사칙연산 결과 메서드를 출력
-		calcNum.result();
+		calcNum.changeABS(0, 0);
 	}
 }
