@@ -21,7 +21,8 @@ public class PrimeNumSerch {
 	 }
 
 	 void ThisNum(int num, int end) {
-	  for (; num < end; num++) { // UI에서 num,end 값을 받아서 num부터 end까지 반복  
+		 
+	  for (; num < end; num++) { // UI에서 num,end 값을 받아서 num부터 end까지 반복 
 	   count = 0; // count값 초기화
 	   for(int i = 2; i < num; i++) { // i 값이 num보다 작을 때 1씩 증가하며
 	    if(num%i == 0) { // num에서 i를 나눈 나머지가 하나라도 0이 되면 소수가 아니다.
