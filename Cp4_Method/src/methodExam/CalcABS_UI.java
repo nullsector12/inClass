@@ -10,9 +10,7 @@ public class CalcABS_UI {
 		calcNum.num1 = -1111111;
 		calcNum.num2 = 555;
 		
-
-		
-		//사칙연산 결과 메서드를 출력
+		// 절대값 변환 메서드를 출력
 		calcNum.changeABS(0, 0);
 	}
 }

@@ -12,19 +12,7 @@ public class Clac_UI { // 호출을 위한 클래스
 		calcNum.num2 = 55;
 		calcNum.str = "/";
 		calcNum.pushResult();
-		
 
 	}
-	
-	
-
-
-
-
-	
-	
-	
-	
-	
 
 }
