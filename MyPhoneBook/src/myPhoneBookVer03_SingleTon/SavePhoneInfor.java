@@ -29,6 +29,7 @@ public class SavePhoneInfor {
 	
 	// PhoneInfor를 통해 입력되는 데이터를 배열에 저장하는 배열 qBook 생성
 	PhoneInfor[] pBook;
+	PhoneInfor info = null;
 	
 	// 입력된 연락처의 정보 개수 ---> 입력된 배열의 요소 개수
 	// 1. 참조할 때 반복의 횟수
