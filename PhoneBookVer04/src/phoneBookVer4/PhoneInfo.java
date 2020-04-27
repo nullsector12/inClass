@@ -19,14 +19,14 @@ public class PhoneInfo {
 	
 	// 기본 공통 정보 생성자
 	PhoneInfo(String name, String phoneNumber, String address, String eMail) {
-		this.name = name;
+		this.setName(name);
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.eMail = eMail;
 	}
 
 	void getBasicInfo() {
-		System.out.println("이름 : " + this.name);
+		System.out.println("이름 : " + this.getName());
 		System.out.println("전화번호 : " + this.phoneNumber);
 		System.out.println("주소 : " + this.address);
 		System.out.println("E-Mail 주소 : " + this.eMail);
@@ -34,11 +34,18 @@ public class PhoneInfo {
 	
 	// 상속 목적의 오버라이딩을 위한 메서드
 	void showData() {
-		getBasicInfo();
 	}
 	
 	boolean CheckName(String name) {
-		return this.name.equals(name);
+		return this.getName().equals(name);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	
