@@ -16,8 +16,8 @@ public class PhoneBookMenu {
 	System.out.println("	2. 기본정보 전체 검색");
 	System.out.println("	3. 이름 검색");
 	System.out.println("	4. 저장 정보 삭제");
-//	System.out.println("	5. 기본 정보 전체 검색");
-	System.out.println("	5. 프로그램 종료");
+	System.out.println("	5. 저장 정보 수정");
+	System.out.println("	6. 프로그램 종료");
 	System.out.println("=====================");
 	}
 }

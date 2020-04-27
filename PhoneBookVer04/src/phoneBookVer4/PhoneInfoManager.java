@@ -10,10 +10,11 @@ import java.util.Scanner;
  * 전화번호부의 기본 정보 출력 기능 - 2020. 04. 24구현 완료
  * 전화번호부의 상세정보 출력 기능 - 2020. 04. 24구현 완료
  * 입력된 name값을 배열 내에서 찾아 출력해주는 기능 - 2020. 04. 26 구현 완료
- * 입력된 name값을 배열 내에서 찾아 삭제해주는 기능 - 2020. 04. 26구현 완료
+ * 입력된 name값을 배열 내에서 찾아 삭제해주는 기능 - 2020. 04. 26 구현 완료
  * 
  *  수정 일시 : 2020. 04. 27
- *  수정 내용 : 싱글톤 작업, 정보입력창에서 저장그룹 선택기능 추가
+ *  수정 내용 : 싱글톤 작업, 정보입력창에서 저장그룹 선택기능 추가, 이름 검색후 내용수정 기능 추가
+ *  입력된 name값을 배열 내에서 찾아 해당 배열 내의 내용을 수정하고 다시 저장하는 기능 - 2020. 04. 27 구현 완료
  * 
  */
 public class PhoneInfoManager {
@@ -41,6 +42,7 @@ public class PhoneInfoManager {
 		numOfInfo++;
 	}
 	
+	// 입력받은 정보를 토대로 인스턴스 생성
 	void insertInfo(int choice) {
 		
 
@@ -111,7 +113,7 @@ public class PhoneInfoManager {
 		int searchInfoIndex = -1; // 만약 같은 name값이 존재하지 않을경우 반환할 인덱스값
 		for(int i = 0; i < numOfInfo; i++) {
 			if(myPhoneBook[i].CheckName(name)) {
-				searchInfoIndex = i; // 동일한 name값을 찾았을 경우 searchinfoIndex의 값을 i로 변환
+				searchInfoIndex = i; // 동일한 name값을 찾았을 경우 i값을 searchInfoIndex 값으로 삽입
 				break;
 			}
 		}
@@ -132,6 +134,7 @@ public class PhoneInfoManager {
 		}
 	}
 	
+	// 저장된 모든 배열의 기본정보들 출력
 	void showAllBasicData() {
 		System.out.println("===== 저장된 기본 정보들을 출력합니다 =====");
 		for(int i = 0; i < numOfInfo; i++){
@@ -140,6 +143,7 @@ public class PhoneInfoManager {
 		}
 	}
 	
+	// 이름 검색 후 정보 삭제 기능
 	void deleteInfo() {
 		
 		System.out.println("삭제하고자 하는 이름을 입력해주세요.");
@@ -158,7 +162,55 @@ public class PhoneInfoManager {
 		
 	}
 	
-	
-	
+	// 이름 검색 후 정보 수정 기능
+	void modifyInfo() {
+		
+		System.out.println("검색할 이름을 입력해주세요.");
+		String name = input.nextLine();
+		int searchInfoIndex = searchInfoIndex(name);
+		if(searchInfoIndex < 0) {
+			System.out.println("저장되지 않은 이름입니다.");
+			} else {
+				
+				String modiName = myPhoneBook[searchInfoIndex].getName();
+				System.out.println("수정할 데이터 입력을 시작합니다.");
+				System.out.println("이름은 " + modiName + " 입니다.");
+				System.out.println("수정할 전화번호를 입력하세요.");
+				String phoneNumber = input.nextLine();
+				System.out.println("수정할 주소를 입력하세요.");
+				String address = input.nextLine();
+				System.out.println("수정할 이메일을 입력하세요.");
+				String eMail = input.nextLine();
+				
+				if(myPhoneBook[searchInfoIndex] instanceof Phone_Univ_Info) {
+					
+					System.out.println("수정할 전공을 입력하세요.");
+					String major = input.nextLine();
+					System.out.println("수정할 학년을 입력하세요.");
+					String grade = input.nextLine();
+					myPhoneBook[searchInfoIndex] = new Phone_Univ_Info(modiName, phoneNumber, address, eMail, major, grade);
+					
+					} else if (myPhoneBook[searchInfoIndex] instanceof Phone_Company_Info) {
+						System.out.println("수정할 회사명을 입력하세요.");
+						String company = input.nextLine();
+						myPhoneBook[searchInfoIndex] = new Phone_Company_Info(modiName, phoneNumber, address, eMail, company);
+						
+					} else if (myPhoneBook[searchInfoIndex] instanceof Phone_Cafe_Info) {
+						System.out.println("수정할 카페명을 입력하세요.");
+						String cafeName = input.nextLine();
+						myPhoneBook[searchInfoIndex] = new Phone_Cafe_Info(modiName, phoneNumber, address, eMail, cafeName);
+						
+					} else if (myPhoneBook[searchInfoIndex] instanceof Phone_family_info) {
+						System.out.println("수정할 가족관계를 입력하세요.");
+						String relation = input.nextLine();
+						myPhoneBook[searchInfoIndex] = new Phone_family_info(modiName, phoneNumber, address, eMail, relation) ;
+						
+					} else {
+						myPhoneBook[searchInfoIndex] = new PhoneInfo(modiName, phoneNumber, address, eMail);
+					}
+						
+			}System.out.println("- 수정 완료 -");
+
+	}
 	
 }
