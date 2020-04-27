@@ -18,7 +18,7 @@ public class Phone_Univ_Info extends PhoneInfo {
 
 	@Override
 	void showData() {
-		showData();
+		getBasicInfo();
 		System.out.println("전공 : " + major);
 		System.out.println("학년 : " + grade);
 	}

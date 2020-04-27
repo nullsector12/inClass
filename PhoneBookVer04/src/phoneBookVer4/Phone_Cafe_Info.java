@@ -11,8 +11,8 @@ public class Phone_Cafe_Info extends PhoneInfo {
 
 	@Override
 	void showData() {
-		showData();
-		System.out.println("가게 이름 : " + cafeName);
+		getBasicInfo();
+		System.out.println("카페 이름 : " + cafeName);
 		
 	}
 

@@ -17,7 +17,7 @@ public class Phone_Company_Info extends PhoneInfo {
 
 	@Override
 	void showData() {
-		showData();
+		super.showData();
 		System.out.println("소속 회사명 : " + company);
 	}
 
