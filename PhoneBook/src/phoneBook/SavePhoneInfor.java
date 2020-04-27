@@ -42,13 +42,7 @@ public class SavePhoneInfor {
 	
 	// 저장 : 이름, 전화번호, 생년 정보를 대상으로 저장
 	// 배열에 PhoneInfor 타입의 참조값 저장
-	void saveInfo(PhoneInfor info) {
-		
-		// 배열pBook의 index cnt번에 요소 대입 
-		pBook [cnt] = info;
-		// 등록된 정보증가, index cnt값 증가 
-		cnt++;
-	}
+
 	void saveInfo( ) {
 		
 		// 배열pBook의 index cnt번에 요소 대입 
@@ -146,19 +140,8 @@ public class SavePhoneInfor {
 		}else {
 			info = new PhoneInfor(name, phoneNumber, birthDay);
 		}
-		
-//		System.out.println("프로그램 종료? :  종료는 y 입력, 계속 하려면 n 입력");
-//		command = input.nextLine();
-//		if("n".equals(command))  // command에 입력되는 문자열이 n 과 같으면 (equals), 프로그램 다시 진행 
-//			
-//		if (command.equals("y")) { // command에 입력된 문자열이 y와 같으면 프로그램 종료함
-//			System.out.println("전화번호 저장 종료");
-//			System.exit(0); // System.exit(0) 클래스
-//			}
-
 		return info;
 	}
 	
 }
-	
-		
+
