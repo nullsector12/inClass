@@ -9,6 +9,9 @@ package personalData;
  * == 추상클래스 완성과 비슷함. (추상 클래스는 상속을 받음)
  *  일부만 구현하는 경우, 클래스 앞에 abstract를 붙여야함. 
  *
+ *
+ *
+ *
  */
 
 public class PersonalNumberStorageImpl implements PersonalNum{
