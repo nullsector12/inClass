@@ -73,9 +73,9 @@ public class PhoneInfoManager {
 			System.out.println("\n" + "	4. 가족 정보 ");
 			
 			int choiceGroup = Integer.parseInt(input.nextLine());
-			
-			switch (choiceGroup) {
 
+			switch (choiceGroup) {
+			
 			case 1:
 				System.out.println("	[대학 친구 정보 저장]");
 				System.out.println("	전공을 입력해주세요. ");

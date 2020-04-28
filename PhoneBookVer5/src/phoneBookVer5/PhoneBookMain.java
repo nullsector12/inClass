@@ -18,10 +18,17 @@ public class PhoneBookMain {
 		PhoneInfoManager manager = PhoneInfoManager.getInstance();
 		
 		while(true) {
-			
+			int choice = 0;
 			PhoneBookMenu.menu();
-			
-			int choice = manager.input.nextInt();
+			try {
+				choice = manager.input.nextInt();
+				
+			} catch (Exception e) {
+				System.out.println("정상적인 메뉴 번호 입력이 되지 않았습니다.");
+				System.out.println("숫자를 다시 입력해주세요.");
+				manager.input.nextLine();
+				continue;
+			}
 			
 			manager.input.nextLine(); // 앞의 버퍼 클리어
 			

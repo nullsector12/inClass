@@ -24,7 +24,7 @@ public abstract class PhoneInfo implements OverrideInterface {
 	
 	// 기본 공통 정보 생성자
 	PhoneInfo(String name, String phoneNumber, String address, String eMail) {
-		this.setName(name);
+		this.name = name;
 		this.phoneNumber = phoneNumber;
 		this.address = address;
 		this.eMail = eMail;
@@ -49,8 +49,8 @@ public abstract class PhoneInfo implements OverrideInterface {
 		return name;
 	}
 
-	public void setName(String name) {
-		this.name = name;
-	}
+//	public void setName(String name) {
+//		this.name = name;
+//	}
 	
 }
