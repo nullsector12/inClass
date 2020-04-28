@@ -9,8 +9,13 @@ package phoneBookVer5;
  * 수정 일시 : 2020. 04. 27
  * 수정 내용 : 입력받은 String 값의 비교 후 true or false 값을 반환하는 메서드 추가
  * 							싱글톤 처리 추가
+ * 
+ * 수정 일시 : 2020. 04. 28
+ * 수정 내용 : 인터페이스 구현 후 추상클래스화 하여 PhoneInfo 인스턴스의 생성을 막음
+ * 
+ * 
  */
-public class PhoneInfo {
+public abstract class PhoneInfo implements OverrideInterface {
 	
 	private String name; 
 	private String phoneNumber;
@@ -32,9 +37,9 @@ public class PhoneInfo {
 		System.out.println("E-Mail 주소 : " + this.eMail);
 	}
 	
-	// 상속 목적의 오버라이딩을 위한 메서드
-	void showData() {
-	}
+	//  일반 클래스 당시 상속 목적의 오버라이딩을 위한 메서드
+//	void showData() {
+//	}
 	
 	boolean CheckName(String name) {
 		return this.getName().equals(name);
@@ -47,6 +52,5 @@ public class PhoneInfo {
 	public void setName(String name) {
 		this.name = name;
 	}
-	
 	
 }

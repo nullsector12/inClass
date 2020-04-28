@@ -10,7 +10,7 @@ public class Phone_Cafe_Info extends PhoneInfo {
 	}
 
 	@Override
-	void showData() {
+	public void showData() {
 		getBasicInfo();
 		System.out.println("카페 이름 : " + cafeName);
 		

@@ -10,7 +10,7 @@ public class Phone_family_info extends PhoneInfo {
 	}
 
 	@Override
-	void showData() {
+	public void showData() {
 		getBasicInfo();
 		System.out.println("나와의 가족 관계 : " + relation);
 	}

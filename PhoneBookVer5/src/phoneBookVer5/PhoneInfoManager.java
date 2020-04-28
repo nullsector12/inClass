@@ -16,6 +16,9 @@ import java.util.Scanner;
  *  수정 내용 : 싱글톤 작업, 정보입력창에서 저장그룹 선택기능 추가, 이름 검색후 내용수정 기능 추가
  *  입력된 name값을 배열 내에서 찾아 해당 배열 내의 내용을 수정하고 다시 저장하는 기능 - 2020. 04. 27 구현 완료
  * 
+ *  수정 일시 : 2020. 04. 28
+ *  수정 내용 : PhoneInfo의 추상클래스화로 인해 PhoneInfo 인스턴스 생성과 출력 삭제
+ * 
  */
 public class PhoneInfoManager {
 	
@@ -30,11 +33,13 @@ public class PhoneInfoManager {
 		numOfInfo = 0; // 저장 정보 개수 초기화
 	}
 	
+	// 싱글톤 작업
 	private static PhoneInfoManager manager = new PhoneInfoManager(50);
 	
 	public static PhoneInfoManager getInstance() {
 		return manager;
 	}
+	// 
 	
 	void addInfo(PhoneInfo info) {
 		
@@ -62,19 +67,16 @@ public class PhoneInfoManager {
 			String eMail = input.nextLine();
 			
 			System.out.println("\n" + " [	그룹 선택	]");
-			System.out.println("\n" + "	1. 그룹 미지정 ");
-			System.out.println("\n" + "	2. 대학 친구 ");
-			System.out.println("\n" + "	3. 회사 동료 ");
-			System.out.println("\n" + "	 4. 카페 정보 ");
-			System.out.println("\n" + "	5. 가족 정보 ");
+			System.out.println("\n" + "	1. 대학 친구 ");
+			System.out.println("\n" + "	2. 회사 동료 ");
+			System.out.println("\n" + "	3. 카페 정보 ");
+			System.out.println("\n" + "	4. 가족 정보 ");
 			
 			int choiceGroup = Integer.parseInt(input.nextLine());
 			
 			switch (choiceGroup) {
-			case 1: 
-				info = new PhoneInfo(name, phoneNumber, address, eMail);
-				break;
-			case 2:
+
+			case 1:
 				System.out.println("	[대학 친구 정보 저장]");
 				System.out.println("	전공을 입력해주세요. ");
 				String major = input.nextLine();
@@ -83,21 +85,21 @@ public class PhoneInfoManager {
 				info = new Phone_Univ_Info(name, phoneNumber, address, eMail, major, grade);
 				break;
 				
-			case 3:
+			case 2:
 				System.out.println("	[회사 동료 정보 저장]");
 				System.out.println("	회사명을 입력해주세요. ");
 				String company = input.nextLine();
 				info = new Phone_Company_Info(name, phoneNumber, address, eMail, company);
 				break;
 	
-			case 4:
+			case 3:
 				System.out.println("	[카페 정보 저장]");
 				System.out.println("	카페 이름을 입력해주세요.");
 				String cafeName = input.nextLine();
 				info = new Phone_Cafe_Info(name, phoneNumber, address, eMail, cafeName);
 				break;
 				
-			case 5:
+			case 4:
 				System.out.println("	[가족 정보 저장]");
 				System.out.println("	가족 관계를 입력해주세요.");
 				String relation = input.nextLine();
@@ -205,11 +207,9 @@ public class PhoneInfoManager {
 						String relation = input.nextLine();
 						myPhoneBook[searchInfoIndex] = new Phone_family_info(modiName, phoneNumber, address, eMail, relation) ;
 						
-					} else {
-						myPhoneBook[searchInfoIndex] = new PhoneInfo(modiName, phoneNumber, address, eMail);
 					}
-						
-			}System.out.println("- 수정 완료 -");
+				
+			}System.out.println("- 수정 메뉴 종료 -");
 
 	}
 	

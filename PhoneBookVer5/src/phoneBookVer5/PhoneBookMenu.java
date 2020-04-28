@@ -12,12 +12,12 @@ public class PhoneBookMenu {
 		
 	System.out.println("=====================");
 	System.out.println("		[	메뉴 입력	]");
-	System.out.println("	1. 전화번호부 정보 저장");
-	System.out.println("	2. 기본정보 전체 검색");
-	System.out.println("	3. 이름 검색");
-	System.out.println("	4. 저장 정보 삭제");
-	System.out.println("	5. 저장 정보 수정");
-	System.out.println("	6. 프로그램 종료");
+	System.out.println(" "+MenuNumInterface.SAVEINFO+". 전화번호부 정보 저장");
+	System.out.println(" "+MenuNumInterface.SHOWALLBASICDATA+". 기본정보 전체 검색");
+	System.out.println(" "+MenuNumInterface.SEARCHNAMEINFO+". 이름 검색");
+	System.out.println(" "+MenuNumInterface.DELETEINFO+". 저장 정보 삭제");
+	System.out.println(" "+MenuNumInterface.MODIFYINFO+". 저장 정보 수정");
+	System.out.println(" "+MenuNumInterface.EXITSYSTEM+". 프로그램 종료");
 	System.out.println("=====================");
 	}
 }
