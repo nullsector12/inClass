@@ -17,5 +17,11 @@ public class HighFriends extends Friend_Info{
 		System.out.println("직업 :  " + work);
 
 	}
+
+	@Override
+	void showData() {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }

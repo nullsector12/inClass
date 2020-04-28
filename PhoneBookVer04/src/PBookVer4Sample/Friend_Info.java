@@ -31,4 +31,9 @@ public abstract class Friend_Info {
 	// 추상 메서드 생성
 	abstract void showData() ;
 
+	void showDate() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

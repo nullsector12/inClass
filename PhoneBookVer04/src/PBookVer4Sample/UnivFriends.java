@@ -20,4 +20,10 @@ public class UnivFriends extends Friend_Info {
 		System.out.println("학년 : " + grade);
 	}
 
+	@Override
+	void showData() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
