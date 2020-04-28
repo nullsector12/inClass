@@ -13,11 +13,11 @@ public class SingleTon {
 	// 일단 막고
 	private SingleTon() {}
 	
-	//2. 공유할 객체를 생성
+	//2. 공유할 객체(인스턴스)를 생성
 	// 내부적으로 사용될 인스턴스 생성 (static), 밖에서 바뀌지 않게 private
 	private static SingleTon s = new SingleTon();
 	
-	//3. 참조값을 반환하는 메서드 생성
+	//3. 참조변수를 반환하는 메서드 생성
 	// 외부에서 사용될 수 있도록 반환해줄 public static 인스턴스 생성
 	public static SingleTon getInstance() {
 		return s;
