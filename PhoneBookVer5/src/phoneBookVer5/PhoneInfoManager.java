@@ -50,66 +50,74 @@ public class PhoneInfoManager {
 	// 입력받은 정보를 토대로 인스턴스 생성
 	void insertInfo(int choice) {
 		
-
-		if(choice == 1) {
-			
-			System.out.println("정보 저장을 위한 데이터 입력 : ");
-			
-			System.out.println("===== 이름 입력 =====");
-			String name = input.nextLine();
-			
-			 System.out.println("===== 전화번호 입력 =====");
-			String phoneNumber = input.nextLine();
-			
-			System.out.println("===== 주소 입력 =====");
-			String address = input.nextLine();
-			System.out.println("===== E-Mail 주소 입력 =====");
-			String eMail = input.nextLine();
-			
-			System.out.println("\n" + " [	그룹 선택	]");
-			System.out.println("\n" + "	1. 대학 친구 ");
-			System.out.println("\n" + "	2. 회사 동료 ");
-			System.out.println("\n" + "	3. 카페 정보 ");
-			System.out.println("\n" + "	4. 가족 정보 ");
-			
-			int choiceGroup = Integer.parseInt(input.nextLine());
-
-			switch (choiceGroup) {
-			
-			case 1:
-				System.out.println("	[대학 친구 정보 저장]");
-				System.out.println("	전공을 입력해주세요. ");
-				String major = input.nextLine();
-				System.out.println("	학년을 입력해주세요.");
-				String grade = input.nextLine();
-				info = new Phone_Univ_Info(name, phoneNumber, address, eMail, major, grade);
-				break;
+		
+			if(choice == 1) {
 				
-			case 2:
-				System.out.println("	[회사 동료 정보 저장]");
-				System.out.println("	회사명을 입력해주세요. ");
-				String company = input.nextLine();
-				info = new Phone_Company_Info(name, phoneNumber, address, eMail, company);
-				break;
-	
-			case 3:
-				System.out.println("	[카페 정보 저장]");
-				System.out.println("	카페 이름을 입력해주세요.");
-				String cafeName = input.nextLine();
-				info = new Phone_Cafe_Info(name, phoneNumber, address, eMail, cafeName);
-				break;
+				System.out.println("정보 저장을 위한 데이터 입력 : ");
 				
-			case 4:
-				System.out.println("	[가족 정보 저장]");
-				System.out.println("	가족 관계를 입력해주세요.");
-				String relation = input.nextLine();
-				info = new Phone_family_info(name, phoneNumber, address, eMail, relation);
-				break;
+				System.out.println("===== 이름 입력 =====");
+				String name = input.nextLine();
+				
+				 System.out.println("===== 전화번호 입력 =====");
+				String phoneNumber = input.nextLine();
+				
+				System.out.println("===== 주소 입력 =====");
+				String address = input.nextLine();
+				System.out.println("===== E-Mail 주소 입력 =====");
+				String eMail = input.nextLine();
+				
+				System.out.println("\n" + " [	그룹 선택	]");
+				System.out.println("\n" + "	1. 대학 친구 ");
+				System.out.println("\n" + "	2. 회사 동료 ");
+				System.out.println("\n" + "	3. 카페 정보 ");
+				System.out.println("\n" + "	4. 가족 정보 ");
+				
+				int choiceGroup = input.nextInt();
+				input.nextLine();
+				
+				switch (choiceGroup) {
+				
+				case 1:
+					System.out.println("	[대학 친구 정보 저장]");
+					System.out.println("	전공을 입력해주세요. ");
+					String major = input.nextLine();
+					System.out.println("	학년을 입력해주세요.");
+					String grade = input.nextLine();
+					info = new Phone_Univ_Info(name, phoneNumber, address, eMail, major, grade);
+					break;
+					
+				case 2:
+					System.out.println("	[회사 동료 정보 저장]");
+					System.out.println("	회사명을 입력해주세요. ");
+					String company = input.nextLine();
+					info = new Phone_Company_Info(name, phoneNumber, address, eMail, company);
+					break;
+		
+				case 3:
+					System.out.println("	[카페 정보 저장]");
+					System.out.println("	카페 이름을 입력해주세요.");
+					String cafeName = input.nextLine();
+					info = new Phone_Cafe_Info(name, phoneNumber, address, eMail, cafeName);
+					break;
+					
+				case 4:
+					System.out.println("	[가족 정보 저장]");
+					System.out.println("	가족 관계를 입력해주세요.");
+					String relation = input.nextLine();
+					info = new Phone_family_info(name, phoneNumber, address, eMail, relation);
+					break;
+					
+				default :
+					System.out.println("잘못된 그룹입니다.");
+					System.out.println("그룹을 다시 선택해주세요.");
+					return;
+						}
+				}
+			addInfo(info);
 			}
-		addInfo(info);
-	}
-}
-				
+
+
+	
 	// 입력한 name을 배열 안에서 찾은 후 해당하는 인덱스 번호 반환
 	int searchInfoIndex(String name) {
 		int searchInfoIndex = -1; // 만약 같은 name값이 존재하지 않을경우 반환할 인덱스값
