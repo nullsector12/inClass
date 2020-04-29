@@ -2,6 +2,8 @@ package phoneBookVer5;
 
 import java.util.Scanner;
 
+import excepClass.BadNumberException;
+
 
 /**
  * 작성자 : 김승연
@@ -18,6 +20,11 @@ import java.util.Scanner;
  * 
  *  수정 일시 : 2020. 04. 28
  *  수정 내용 : PhoneInfo의 추상클래스화로 인해 PhoneInfo 인스턴스 생성과 출력 삭제
+ *  
+ *  수정 일시 : 2020. 04. 29
+ *  수정 내용 : 메뉴선택의 예외처리 추가, 검색/삭제/변경 기능의 예외처리 추가
+ *  
+ *  예외처리 추가 수정 해보기
  * 
  */
 public class PhoneInfoManager {
@@ -48,76 +55,95 @@ public class PhoneInfoManager {
 	}
 	
 	// 입력받은 정보를 토대로 인스턴스 생성
-	void insertInfo(int choice) {
+	void insertInfo() {
+	
 		
-		
-			if(choice == 1) {
-				
-				System.out.println("정보 저장을 위한 데이터 입력 : ");
+				System.out.println("기본 데이터 입력 : ");
 				
 				System.out.println("===== 이름 입력 =====");
 				String name = input.nextLine();
 				
-				 System.out.println("===== 전화번호 입력 =====");
+				System.out.println("===== 전화번호 입력 =====");
 				String phoneNumber = input.nextLine();
 				
 				System.out.println("===== 주소 입력 =====");
 				String address = input.nextLine();
 				System.out.println("===== E-Mail 주소 입력 =====");
 				String eMail = input.nextLine();
+
+				while(true) {
+					int select = 0;
+					System.out.println("\n" + " [	그룹 선택	]");
+					System.out.println("\n" + "	1. 대학 친구 ");
+					System.out.println("\n" + "	2. 회사 동료 ");
+					System.out.println("\n" + "	3. 카페 정보 ");
+					System.out.println("\n" + "	4. 가족 정보 ");
 				
-				System.out.println("\n" + " [	그룹 선택	]");
-				System.out.println("\n" + "	1. 대학 친구 ");
-				System.out.println("\n" + "	2. 회사 동료 ");
-				System.out.println("\n" + "	3. 카페 정보 ");
-				System.out.println("\n" + "	4. 가족 정보 ");
-				
-				int choiceGroup = input.nextInt();
-				input.nextLine();
-				
-				switch (choiceGroup) {
-				
-				case 1:
-					System.out.println("	[대학 친구 정보 저장]");
-					System.out.println("	전공을 입력해주세요. ");
-					String major = input.nextLine();
-					System.out.println("	학년을 입력해주세요.");
-					String grade = input.nextLine();
-					info = new Phone_Univ_Info(name, phoneNumber, address, eMail, major, grade);
-					break;
-					
-				case 2:
-					System.out.println("	[회사 동료 정보 저장]");
-					System.out.println("	회사명을 입력해주세요. ");
-					String company = input.nextLine();
-					info = new Phone_Company_Info(name, phoneNumber, address, eMail, company);
-					break;
-		
-				case 3:
-					System.out.println("	[카페 정보 저장]");
-					System.out.println("	카페 이름을 입력해주세요.");
-					String cafeName = input.nextLine();
-					info = new Phone_Cafe_Info(name, phoneNumber, address, eMail, cafeName);
-					break;
-					
-				case 4:
-					System.out.println("	[가족 정보 저장]");
-					System.out.println("	가족 관계를 입력해주세요.");
-					String relation = input.nextLine();
-					info = new Phone_family_info(name, phoneNumber, address, eMail, relation);
-					break;
-					
-				default :
-					System.out.println("잘못된 그룹입니다.");
-					System.out.println("그룹을 다시 선택해주세요.");
-					return;
+					try {
+						select = input.nextInt();
+						// 메뉴의 숫자범위 내에서 벗어난 입력을 할 경우 예외처리
+						if( !(select >= MenuNumInterface.SELECTUNIV && select <= MenuNumInterface.SELECTFAMILY) ) {
+							BadNumberException e = new BadNumberException("잘못된 그룹 선택");
+							throw e;
 						}
-				}
-			addInfo(info);
+						// 정수가 아닌 다른 형태의 입력이 있을 경우 예외처리
+					}catch (NumberFormatException e) {
+						System.out.println("잘못된 입력입니다.");
+						System.out.println("그룹을 다시 입력해주세요.");
+						continue;
+
+					}catch (BadNumberException e) {
+						System.out.println("잘못된 입력입니다.");
+						System.out.println("그룹을 다시 입력해주세요.");
+						continue;
+						// 미처 예상하지 못한 예외들을 처리
+					} catch (Exception e) {
+						System.out.println("잘못된 입력입니다.");
+						System.out.println("그룹을 다시 입력해주세요.");
+						continue;
+						// 정수타입 입력으로 인한 버퍼 플러쉬를 위한 finally
+					}finally {
+						input.nextLine();
+					}
+					
+					switch (select) {
+					case MenuNumInterface.SELECTUNIV :
+						System.out.println("	[대학 친구 정보 저장]");
+						System.out.println("	전공을 입력해주세요. ");
+						String major = input.nextLine();
+						System.out.println("	학년을 입력해주세요.");
+						String grade = input.nextLine();
+						info = new Phone_Univ_Info(name, phoneNumber, address, eMail, major, grade);
+						break;
+						
+					case MenuNumInterface.SELECTCOMPANY :
+						System.out.println("	[회사 동료 정보 저장]");
+						System.out.println("	회사명을 입력해주세요. ");
+						String company = input.nextLine();
+						info = new Phone_Company_Info(name, phoneNumber, address, eMail, company);
+						break;
+			
+					case MenuNumInterface.SELECTCAFE :
+						System.out.println("	[카페 정보 저장]");
+						System.out.println("	카페 이름을 입력해주세요.");
+						String cafeName = input.nextLine();
+						info = new Phone_Cafe_Info(name, phoneNumber, address, eMail, cafeName);
+						break;
+						
+					case MenuNumInterface.SELECTFAMILY :
+						System.out.println("	[가족 정보 저장]");
+						System.out.println("	가족 관계를 입력해주세요.");
+						String relation = input.nextLine();
+						info = new Phone_family_info(name, phoneNumber, address, eMail, relation);
+						break;
+					}
+					addInfo(info);
+					// 정보를 입력한 후 return을 통해 main으로 돌아간다.
+					return;
 			}
-
-
+	}
 	
+		
 	// 입력한 name을 배열 안에서 찾은 후 해당하는 인덱스 번호 반환
 	int searchInfoIndex(String name) {
 		int searchInfoIndex = -1; // 만약 같은 name값이 존재하지 않을경우 반환할 인덱스값
@@ -135,13 +161,26 @@ public class PhoneInfoManager {
 	// 만약 반환받은 searchInfoIndex의 값이 0보다 작다면 저장되지 않은것
 	void serchNameInfo() {
 		System.out.println("검색할 이름을 입력해주세요.");
-		String name = input.nextLine();
-		int searchInfoIndex = searchInfoIndex(name);
-		if(searchInfoIndex < 0) {
-			System.out.println("저장되지 않은 이름입니다");
-		}else {
-			myPhoneBook[searchInfoIndex].showData();
+		int searchInfoIndex = 0;
+	while(true) {
+		try {
+			String name = input.nextLine();
+			searchInfoIndex = searchInfoIndex(name);
+			if(!(myPhoneBook[searchInfoIndex].CheckName(name)));
+			
+	}catch(ArrayIndexOutOfBoundsException e){
+		System.out.println("저장되지 않은 이름입니다.");
+		System.out.println("이름을 다시 입력해주세요.");
+		continue;
+		
+	}catch( Exception e) {
+		System.out.println("예기치 않은 오류입니다.");
+		System.out.println("이름을 다시 입력해주세요.");
+		continue;
 		}
+		break;
+	}
+	myPhoneBook[searchInfoIndex].showData();
 	}
 	
 	// 저장된 모든 배열의 기본정보들 출력
@@ -157,12 +196,25 @@ public class PhoneInfoManager {
 	void deleteInfo() {
 		
 		System.out.println("삭제하고자 하는 이름을 입력해주세요.");
-		String name = input.nextLine();
-		int searchInfoIndex = searchInfoIndex(name);
-		
-		if(searchInfoIndex <0) {
-			System.out.println("저장되지 않은 이름입니다.");
-		}else {
+		int searchInfoIndex = 0;
+		while(true) {
+			try {
+				String name = input.nextLine();
+				searchInfoIndex = searchInfoIndex(name);
+				if(!(myPhoneBook[searchInfoIndex].CheckName(name)));
+				
+			}catch(ArrayIndexOutOfBoundsException e){
+				System.out.println("저장되지 않은 이름입니다.");
+				System.out.println("이름을 다시 입력해주세요.");
+				continue;
+			
+			}catch( Exception e) {
+				System.out.println("예기치 않은 오류입니다.");
+				System.out.println("이름을 다시 입력해주세요.");
+				continue;
+			}
+				break;
+		}
 			for(int i = searchInfoIndex; i < numOfInfo-1; i++) {
 				myPhoneBook[i] = myPhoneBook[i+1]; // 저장된 정보 개수 -1
 			}
@@ -170,18 +222,30 @@ public class PhoneInfoManager {
 			System.out.println("정보의 삭제를 완료했습니다."); 
 		}
 		
-	}
 	
 	// 이름 검색 후 정보 수정 기능
 	void modifyInfo() {
 		
 		System.out.println("검색할 이름을 입력해주세요.");
-		String name = input.nextLine();
-		int searchInfoIndex = searchInfoIndex(name);
-		if(searchInfoIndex < 0) {
-			System.out.println("저장되지 않은 이름입니다.");
-			} else {
-				
+		int searchInfoIndex = 0;
+	while(true) {
+		try {
+			String name = input.nextLine();
+			searchInfoIndex = searchInfoIndex(name);
+			if(!(myPhoneBook[searchInfoIndex].CheckName(name)));
+			
+	}catch(ArrayIndexOutOfBoundsException e){
+		System.out.println("저장되지 않은 이름입니다.");
+		System.out.println("이름을 다시 입력해주세요.");
+		continue;
+		
+	}catch( Exception e) {
+		System.out.println("예기치 않은 오류입니다.");
+		System.out.println("이름을 다시 입력해주세요.");
+		continue;
+		}
+		break;
+	}
 				String modiName = myPhoneBook[searchInfoIndex].getName();
 				System.out.println("수정할 데이터 입력을 시작합니다.");
 				System.out.println("이름은 " + modiName + " 입니다.");
@@ -216,9 +280,8 @@ public class PhoneInfoManager {
 						myPhoneBook[searchInfoIndex] = new Phone_family_info(modiName, phoneNumber, address, eMail, relation) ;
 						
 					}
-				
-			}System.out.println("- 수정 메뉴 종료 -");
-
-	}
-	
+				System.out.println("- 수정 메뉴 종료 -");
+			}
 }
+
+

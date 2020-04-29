@@ -13,6 +13,10 @@ public interface MenuNumInterface {
 			, SEARCHNAMEINFO = 3
 			, DELETEINFO = 4
 			, MODIFYINFO = 5
-			, EXITSYSTEM = 6;
+			, EXITSYSTEM = 6
+			, SELECTUNIV = 1
+			, SELECTCOMPANY = 2
+			, SELECTCAFE = 3
+			, SELECTFAMILY = 4;
 
 }

@@ -1,5 +1,10 @@
 package phoneBookVer5;
 
+import java.util.InputMismatchException;
+
+import excepClass.BadNumberException;
+
+
 /**
  * 작성자 : 김승연
  * 작성일시 : 2020. 04. 24
@@ -10,6 +15,9 @@ package phoneBookVer5;
  *
  * 수정 일시 : 2020. 04. 28
  * 수정 내용 : 메뉴선택을 위해 받는 정수의 인터페이스(상수)화
+ * 
+ * 수정 일시 : 2020. 04. 29
+ * 수정 내용 : 메뉴 선택의 예외처리 추가
  */
 public class PhoneBookMain {
 	
@@ -22,20 +30,33 @@ public class PhoneBookMain {
 			PhoneBookMenu.menu();
 			try {
 				choice = manager.input.nextInt();
+				if(!(choice >= MenuNumInterface.SAVEINFO && choice <= MenuNumInterface.EXITSYSTEM)) {
+					BadNumberException e = new BadNumberException("잘못된 메뉴 입력"); 
+					throw e;
+				}
+			}catch (InputMismatchException e) {
+				System.out.println("정상적인 메뉴 번호 입력이 되지 않았습니다.");
+				System.out.println("숫자를 다시 입력해주세요.");
+				continue;
+				
+			}catch(BadNumberException e) {
+				System.out.println("메뉴 범위를 벗어난 입력입니다.");
+				System.out.println("숫자를 다시 입력해주세요.");
+				continue;
 				
 			} catch (Exception e) {
 				System.out.println("정상적인 메뉴 번호 입력이 되지 않았습니다.");
 				System.out.println("숫자를 다시 입력해주세요.");
-				manager.input.nextLine();
 				continue;
+				
+			}finally {
+				manager.input.nextLine();
 			}
-			
-			manager.input.nextLine(); // 앞의 버퍼 클리어
 			
 			// 메뉴 선택 시 MenuNumInterface의 상수값에 따라 선택됨
 			switch (choice) {
 			case MenuNumInterface.SAVEINFO :
-				manager.insertInfo(choice);
+				manager.insertInfo();
 				break;
 			case MenuNumInterface.SHOWALLBASICDATA: 
 				manager.showAllBasicData();
