@@ -1,5 +1,6 @@
 package phoneBookVer5;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import excepClass.BadNumberException;
@@ -24,20 +25,22 @@ import excepClass.BadNumberException;
  *  수정 일시 : 2020. 04. 29
  *  수정 내용 : 메뉴선택의 예외처리 추가, 검색/삭제/변경 기능의 예외처리 추가
  *  
+ *  수정 일시 : 2020. 05. 01
+ *  수정 내용 : 배열의 리스트처리
  *  예외처리 추가 수정 해보기
  * 
  */
 public class PhoneInfoManager {
 	
-	private PhoneInfo[] myPhoneBook; // PhoneInfo 타입의 배열 선언
-	private int numOfInfo; // 저장된 정보 개수
+	private ArrayList<PhoneInfo> myPhoneBook; // PhoneInfo 타입의 배열 선언
+//	private int numOfInfo; // 리스트화로 인해 필요없어짐
 	private PhoneInfo info = null;
 	Scanner input = new Scanner(System.in); // 키보드 입력에 사용할 Scanner 선언
 
 	// 초기화
 	PhoneInfoManager(int num) {
-		myPhoneBook = new PhoneInfo[num]; // 배열 초기화
-		numOfInfo = 0; // 저장 정보 개수 초기화
+		myPhoneBook = new ArrayList<PhoneInfo>(); // 리스트 초기화
+
 	}
 	
 	// 싱글톤 작업
@@ -50,8 +53,7 @@ public class PhoneInfoManager {
 	
 	void addInfo(PhoneInfo info) {
 		
-		myPhoneBook[numOfInfo] = info;
-		numOfInfo++;
+		this.myPhoneBook.add(info);
 	}
 	
 	// 입력받은 정보를 토대로 인스턴스 생성
@@ -147,8 +149,8 @@ public class PhoneInfoManager {
 	// 입력한 name을 배열 안에서 찾은 후 해당하는 인덱스 번호 반환
 	int searchInfoIndex(String name) {
 		int searchInfoIndex = -1; // 만약 같은 name값이 존재하지 않을경우 반환할 인덱스값
-		for(int i = 0; i < numOfInfo; i++) {
-			if(myPhoneBook[i].CheckName(name)) {
+		for(int i = 0; i <myPhoneBook.size(); i++) {
+			if(myPhoneBook.get(i).CheckName(name)) {
 				searchInfoIndex = i; // 동일한 name값을 찾았을 경우 i값을 searchInfoIndex 값으로 삽입
 				break;
 			}
@@ -166,7 +168,7 @@ public class PhoneInfoManager {
 		try {
 			String name = input.nextLine();
 			searchInfoIndex = searchInfoIndex(name);
-			if(!(myPhoneBook[searchInfoIndex].CheckName(name)));
+			if(!(myPhoneBook.get(searchInfoIndex).CheckName(name)));
 			
 	}catch(ArrayIndexOutOfBoundsException e){
 		System.out.println("저장되지 않은 이름입니다.");
@@ -180,14 +182,14 @@ public class PhoneInfoManager {
 		}
 		break;
 	}
-	myPhoneBook[searchInfoIndex].showData();
+	myPhoneBook.get(searchInfoIndex).showData();
 	}
 	
 	// 저장된 모든 배열의 기본정보들 출력
 	void showAllBasicData() {
 		System.out.println("===== 저장된 기본 정보들을 출력합니다 =====");
-		for(int i = 0; i < numOfInfo; i++){
-			myPhoneBook[i].getBasicInfo();
+		for(int i = 0; i < myPhoneBook.size(); i++){
+			myPhoneBook.get(i).getBasicInfo();
 			System.out.println("------------------------------------");
 		}
 	}
@@ -201,7 +203,7 @@ public class PhoneInfoManager {
 			try {
 				String name = input.nextLine();
 				searchInfoIndex = searchInfoIndex(name);
-				if(!(myPhoneBook[searchInfoIndex].CheckName(name)));
+				if(!(myPhoneBook.get(searchInfoIndex).CheckName(name)));
 				
 			}catch(ArrayIndexOutOfBoundsException e){
 				System.out.println("저장되지 않은 이름입니다.");
@@ -215,12 +217,10 @@ public class PhoneInfoManager {
 			}
 				break;
 		}
-			for(int i = searchInfoIndex; i < numOfInfo-1; i++) {
-				myPhoneBook[i] = myPhoneBook[i+1]; // 저장된 정보 개수 -1
-			}
-			numOfInfo--;
-			System.out.println("정보의 삭제를 완료했습니다."); 
-		}
+		myPhoneBook.remove(searchInfoIndex);
+	}
+
+
 		
 	
 	// 이름 검색 후 정보 수정 기능
@@ -232,7 +232,7 @@ public class PhoneInfoManager {
 		try {
 			String name = input.nextLine();
 			searchInfoIndex = searchInfoIndex(name);
-			if(!(myPhoneBook[searchInfoIndex].CheckName(name)));
+			if(!(myPhoneBook.get(searchInfoIndex).CheckName(name)));
 			
 	}catch(ArrayIndexOutOfBoundsException e){
 		System.out.println("저장되지 않은 이름입니다.");
@@ -246,7 +246,7 @@ public class PhoneInfoManager {
 		}
 		break;
 	}
-				String modiName = myPhoneBook[searchInfoIndex].getName();
+				String modiName = myPhoneBook.get(searchInfoIndex).getName();
 				System.out.println("수정할 데이터 입력을 시작합니다.");
 				System.out.println("이름은 " + modiName + " 입니다.");
 				System.out.println("수정할 전화번호를 입력하세요.");
@@ -256,28 +256,28 @@ public class PhoneInfoManager {
 				System.out.println("수정할 이메일을 입력하세요.");
 				String eMail = input.nextLine();
 				
-				if(myPhoneBook[searchInfoIndex] instanceof Phone_Univ_Info) {
+				if(myPhoneBook.get(searchInfoIndex) instanceof Phone_Univ_Info) {
 					
 					System.out.println("수정할 전공을 입력하세요.");
 					String major = input.nextLine();
 					System.out.println("수정할 학년을 입력하세요.");
 					String grade = input.nextLine();
-					myPhoneBook[searchInfoIndex] = new Phone_Univ_Info(modiName, phoneNumber, address, eMail, major, grade);
+					myPhoneBook.set(searchInfoIndex, new Phone_Univ_Info(modiName, phoneNumber, address, eMail, major, grade));
 					
-					} else if (myPhoneBook[searchInfoIndex] instanceof Phone_Company_Info) {
+					} else if (myPhoneBook.get(searchInfoIndex) instanceof Phone_Company_Info) {
 						System.out.println("수정할 회사명을 입력하세요.");
 						String company = input.nextLine();
-						myPhoneBook[searchInfoIndex] = new Phone_Company_Info(modiName, phoneNumber, address, eMail, company);
+						myPhoneBook.set(searchInfoIndex, new Phone_Company_Info(modiName, phoneNumber, address, eMail, company));
 						
-					} else if (myPhoneBook[searchInfoIndex] instanceof Phone_Cafe_Info) {
+					} else if (myPhoneBook.get(searchInfoIndex) instanceof Phone_Cafe_Info) {
 						System.out.println("수정할 카페명을 입력하세요.");
 						String cafeName = input.nextLine();
-						myPhoneBook[searchInfoIndex] = new Phone_Cafe_Info(modiName, phoneNumber, address, eMail, cafeName);
+						myPhoneBook.set(searchInfoIndex, new Phone_Cafe_Info(modiName, phoneNumber, address, eMail, cafeName)); 
 						
-					} else if (myPhoneBook[searchInfoIndex] instanceof Phone_family_info) {
+					} else if (myPhoneBook.get(searchInfoIndex) instanceof Phone_family_info) {
 						System.out.println("수정할 가족관계를 입력하세요.");
 						String relation = input.nextLine();
-						myPhoneBook[searchInfoIndex] = new Phone_family_info(modiName, phoneNumber, address, eMail, relation) ;
+						myPhoneBook.set(searchInfoIndex, new Phone_family_info(modiName, phoneNumber, address, eMail, relation));
 						
 					}
 				System.out.println("- 수정 메뉴 종료 -");
