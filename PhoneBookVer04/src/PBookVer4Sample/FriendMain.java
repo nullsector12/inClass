@@ -4,7 +4,7 @@ public class FriendMain {
 	
 	public static void main(String[] args) {
 		
-		Friend_Info_Handler controll = new Friend_Info_Handler(10);
+		Friend_Info_Handler controll = new Friend_Info_Handler();
 		
 		while (true) {
 			

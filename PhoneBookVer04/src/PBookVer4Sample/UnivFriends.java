@@ -5,9 +5,9 @@ package PBookVer4Sample;
 public class UnivFriends extends Friend_Info {
 
 	String major;
-	int grade; 
+	String grade; 
 	
-	public UnivFriends(String name, String phoneNumber, String address, String major, int grade) {
+	public UnivFriends(String name, String phoneNumber, String address, String major, String grade) {
 		super(name, phoneNumber, address);
 		this.major = major;
 		this.grade = grade;

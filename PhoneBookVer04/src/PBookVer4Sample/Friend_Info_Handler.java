@@ -1,5 +1,6 @@
 package PBookVer4Sample;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 // Friend 타입의 정보를 저장할 배열을 가짐. == SavePhoneInfor
@@ -9,15 +10,14 @@ import java.util.Scanner;
 
 public class Friend_Info_Handler {
 	
-	private Friend_Info[] myFriends; // Friend_Info 타입의 배열 선언
-	private int numOfFriend; // 저장된 친구의 정보 개수
+	public ArrayList<Friend_Info> myFriends; // Friend_Info 타입의 배열 선언
+	// 저장된 친구의 정보 개수
 	Scanner input = new Scanner(System.in);
 	
 	
 	// 초기화 : 저장공간 (사이즈) 크기를 받아서 배열 생성
-	public Friend_Info_Handler(int num) {
-		this.myFriends = new Friend_Info[num];
-		this.numOfFriend = 0;
+	public Friend_Info_Handler() {
+		myFriends = new ArrayList<Friend_Info>();
 		
 	}
 
@@ -26,11 +26,10 @@ public class Friend_Info_Handler {
 	// 2. 사용자에게 데이터를 받아 사용자 요청에 맞는 인스턴스 생성
 	
 	// 1. 배열 저장 기능
-	void addFriendInfo(Friend_Info f) { // == SaveInfo
+	void addFriendInfo(Friend_Info friend) { // == SaveInfo
 		
 		//배열에 저장
-		this.myFriends[numOfFriend] = f;
-		this.numOfFriend++;	
+		this.myFriends.add(friend);
 	}
 	
 	// 2. 사용자에게 데이터를 받아 사용자 요청에 맞는 인스턴스 생성
@@ -63,7 +62,7 @@ public class Friend_Info_Handler {
 
 			
 			//UnivFriend 인스턴스 생성
-			friend = new UnivFriends(name, phoneNumber, address, major, Integer.parseInt(grade));
+			friend = new UnivFriends(name, phoneNumber, address, major, grade);
 		}
 		// addFriendInfo 호출
 		addFriendInfo(friend);
@@ -72,8 +71,8 @@ public class Friend_Info_Handler {
 	// 친구정보 기본 정보 출력 기능
 	void showAllSimpleData() {
 		System.out.println(" ======== 친구의 기본 정보를 출력합니다 ======== ");
-		for(int i = 0; i < numOfFriend; i++) {
-			myFriends[i].showBasicInfo();
+		for(int i = 0; i < myFriends.size(); i++) {
+			myFriends.get(i).showBasicInfo();
 			System.out.println("----------------------------------");
 		
 		}
@@ -81,8 +80,8 @@ public class Friend_Info_Handler {
 	// 친구 상세정보 출력 기능
 	void showAllData() {
 		System.out.println(" ======== 친구의 모든 정보를 출력합니다 ======== ");
-		for(int i = 0; i < numOfFriend; i++) {
-			myFriends[i].showDate();
+		for(int i = 0; i < myFriends.size(); i++) {
+			myFriends.get(i).showDate();
 			System.out.println("---------------------------------");
 		
 		}
