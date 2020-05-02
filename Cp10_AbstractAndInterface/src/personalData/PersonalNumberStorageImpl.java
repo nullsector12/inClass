@@ -10,8 +10,6 @@ package personalData;
  *  일부만 구현하는 경우, 클래스 앞에 abstract를 붙여야함. 
  *
  *
- *
- *
  */
 
 public class PersonalNumberStorageImpl implements PersonalNum{

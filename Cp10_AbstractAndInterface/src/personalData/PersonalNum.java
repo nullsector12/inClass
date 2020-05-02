@@ -13,9 +13,6 @@ package personalData;
  * 추상클래스는 변수를 가질 수 있다. 결국 추상 클래스는 일반 클래스에 추상 메서드가 있을 뿐이다.
  * 인터페이스는 변수나 생성자, 인스턴스 메서드 등을 가질 수 없다.
  * 
- * 
- * 
- * 
  */
 public interface PersonalNum {
 	
