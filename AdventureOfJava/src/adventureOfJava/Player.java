@@ -1,11 +1,9 @@
 package adventureOfJava;
 
-public class Player {
+public class Player implements PlayerBasicStats{
 	
-	int health;
-	int strangth;
-	int agility;
-	int vitality;
+	String name;
 	
+
 
 }
