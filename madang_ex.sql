@@ -35,7 +35,10 @@ where custid = 1;
 select count(bookid) as TotalNumOfBook from book;
 
 --(2)
-select count(publisher) as TotalNumOfPublisher from book;
+select count(distinct publisher) as TotalNumOfPublisher 
+from book;
+
+
 
 --(3)
 select name, address
