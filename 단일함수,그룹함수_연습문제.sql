@@ -92,6 +92,15 @@ select deptno as 부서번호,
 from emp
 group by deptno;
 
+-- join & group by
+select e.deptno, e.ename, d.dname, d.loc, 
+decode(e.deptno, 10, count(e.deptno), 20, count(e.deptno), 30, count(e.deptno), 40, count(e.deptno)) 부서별사원수, 
+decode(e.deptno, 10, round(avg(e.sal)), 20, round(avg(e.sal)), 30, round(avg(e.sal)), 40, round(avg(e.sal))) 부서평균급여
+from emp e, dept d
+where e.deptno = d.deptno
+group by e.deptno, d.deptno, d.dname, d.loc, e.sal, e.ename
+order by d.deptno;
+
 
 --31. 업무를 표시한 다음 해당 업무에 대해 부서 번호별 급여 및 부서 10, 20, 30의 급여 총액을 각각 출력하시오. 별칭은 각 job, dno, 부서 10, 부서 20, 부서 30, 총액으로 지정하시오. ( hint. Decode, group by )
 select job, deptno as dno, 
@@ -103,3 +112,4 @@ from emp
 group by job, deptno
 order by deptno;
 
+select 
