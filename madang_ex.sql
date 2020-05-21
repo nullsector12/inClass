@@ -14,13 +14,18 @@ select bookname
 from book
 where price > 19999;
 
---(3)
-select sum(saleprice) as TotalPayedPrice from orders
-where custid = 1;
+select orderid, custid, saleprice
+from  orders;
 
---(4)
-select count(orderid) as TotalboughtBookcnt from orders
-where custid = 1;
+--(3) JOIN 사용으로 바꿈
+select sum(o.saleprice) as TotalPayedPrice 
+from orders o, customer c
+where c.custid = o.custid and c.name = '박지성';
+
+--(4) JOIN 사용으로 바꿈
+select count(o.orderid) as TotalboughtBookcnt
+from orders o, customer c
+where c.custid = o.custid and c.name = '박지성';
 
 --2 마당서점의 운영자와 경영자가 요구하는 다음 질문에 대해 SQL문을 작성하시오.
 --(1) 마당서점 도서의 총 개수
