@@ -87,13 +87,21 @@ order by c.custid
 ;
 
 
---(12) 도서의 가격(Book 테이블)과 판매가격(Orders 테이블)의 차이가 가장 많은 주문
-select bookname
-from (select bookname, (b.price - o.saleprice) from book b, orders o)
-where 
+--(12) 도서의 가격(Book 테이블)과 판매가격(Orders 테이블)의 차이가 가장 많은 
 
-
-
+select *
+ 
+from   orders
+ 
+where  orderid in   (select orderid
+                        from orders o ,book b
+                        where o.bookid = b.bookid
+                        and abs(price - saleprice) 
+                        = 
+                        (select abs(max(price - saleprice))
+                            from book b2, orders o2
+                            where b2.bookid = o2.bookid))
+;
 
 
 --(13) 도서의 판매액 평균보다 자신의 구매액 평균이 더 높은 고객의 이름
@@ -113,8 +121,42 @@ where avg > (select avg(saleprice)
 
 --3. 마당서점에서 다음의 심화된 질문에 대해 SQL 문을 작성하시오.
 --(1) 박지성이 구매한 도서의 출판사와 같은 출판사에서 도서를 구매한 고객의 이름
-
+select  name
+from    customer c, book b, orders o
+where   publisher in (
+                        select publisher
+                        from customer c2, book b2, orders o2
+                        where c2.name = '박지성' 
+                        and c2.custid = o2.custid 
+                        and b2.bookid = o2.bookid
+                        )
+                        and c.custid = o.custid 
+                        and b.bookid = o.bookid 
+                        and c.name != '박지성'
+;
 
 
 
 --(2) 두 개 이상의 서로 다른 출판사에서 도서를 구매한 고객의 이름
+
+-- 중첩질의/join 사용
+select  name
+from    customer c
+where   (select count(distinct b.publisher)
+                from customer c2, book b, orders o
+                where   c2.custid = o.custid 
+                    and b.bookid = o.bookid 
+                    and c.name = c2.name) > 1
+;
+ 
+-- 인라인 뷰/join 사용
+select name
+from    (
+        select name, publisher 
+        from book b, customer c, orders o 
+        where c.custid = o.custid and o.bookid = b.bookid 
+        group by name, publisher
+        )
+group by name
+having count(distinct publisher) > 1
+;
