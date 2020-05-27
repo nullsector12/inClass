@@ -35,6 +35,7 @@ desc emp01;
 select * from emp01;
 
 -- 테이블 복사 : 서브쿼리 이용
+-- 제약 조건들은 복사되지 않음, 따로 수정해줘야함
 
 create table emp02
 as
@@ -86,15 +87,15 @@ alter table emp01 drop column job;
 
 -- 테이블 구조 삭제
 -- drop table (테이블명)
-drop table emp05;
+drop table contact_basic;
 
 -- 기존 테이블의 모든 로우 제거
 -- trucnate table (테이블명)
-truncate table emp05;
+truncate table contact_basic;
 
 -- 테이블 명 변경
 -- rename (현재 테이블명) to (변경할 테이블명)
-rename emp02 to test;
+rename emp02 to test; 
 select * from test;
 
 desc dept;

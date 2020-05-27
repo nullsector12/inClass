@@ -1,7 +1,4 @@
-
-
-
----2020.05.18
+--2020.05.18
 
 select *FROM tap;
 
@@ -287,6 +284,7 @@ where ename like '__R%';
 select ename
 from emp
 where ename like '%A%' and ename like '%E%';
+
 -- 13번 - 2번째방법 (현재 데이터베이스에선 동일한 결과값이 나오지만 실제론 A가 먼저 있고 그다음 E가 포함됨 이름만 나옴)
 -- E가 먼저인 사람은 나오지 않을 것으로 예상됨
 select ename
