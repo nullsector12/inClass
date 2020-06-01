@@ -16,7 +16,7 @@ public class Scott_ex2 {
 		Connection conn = null;
 		ResultSet rs = null;
 //		ResultSet rs1 = null;
-		Scanner input = new Scanner(System.in);
+
 
 		// 1. DB = 드라이버 로드
 		try {
@@ -37,22 +37,25 @@ public class Scott_ex2 {
 			
 			//3. sql로 데이터 처리
 			String sql1 = "insert into emp (ename, empno, job, mgr, hiredate, sal, comm, deptno)"
-					+ " values ( ?, ?, ?, ?, ?, ?. ?, ? ) ";
-			String sql2 = "select * from emp order by deptno";
+					+ " values (?,?,?,?,?,?,?,?) ";
 			
-			Statement stmt = conn.createStatement();
+			//Statement stmt = conn.createStatement();
 			PreparedStatement pstmt = conn.prepareStatement(sql1);
-			pstmt.setString(1, "GoD");
+			pstmt.setString(1, "God");
 			pstmt.setInt(2, 8282);
 			pstmt.setString(3, "PROGRAMER");
-			pstmt.setString(4, null);
+			pstmt.setInt(4, 7788);
 			pstmt.setString(5, "2020/09/14");
 			pstmt.setInt(6, 3000);
 			pstmt.setInt(7, 0);
-			pstmt.setInt(8, 99);
-			int procNum = pstmt.executeUpdate(sql1);
+			pstmt.setInt(8, 60);
+			int procNum = pstmt.executeUpdate();
 			
+			if(procNum > 7) {
 			System.out.println(procNum + " 개 행이 적용됨");
+			}else {
+				System.out.println("입력 실패");
+			}
 //			String sql1 = "select o.orderid, c.name, b.bookname from customer c, book b, orders o "
 //					+ "where c.custid = o.custid and o.bookid = b.bookid and c.name = "+ "'"+ searchCustName+"'" ;
 
@@ -60,7 +63,7 @@ public class Scott_ex2 {
 			 * Select 의 결과는 ResultSet 이 받는다.
 			 * executeQuery(sql문) - > ResultSet
 			 * */
-			rs = stmt.executeQuery(sql2);
+			rs = pstmt.executeQuery(sql1);
 			
 			
 //			rs1 = stmt.executeQuery(sql1);
@@ -88,7 +91,6 @@ public class Scott_ex2 {
 			}
 			rs.close();
 //			rs1.close();
-			stmt.close();
 			pstmt.close();
 			// commit : 처리완료
 			conn.commit();
