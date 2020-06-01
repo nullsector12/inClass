@@ -52,15 +52,15 @@ public class JDBC_Main {
 			//2. 데이터베이스 접속
 			conn = DriverManager.getConnection(url, user, pw);
 			System.out.println("데이터베이스에 접속했습니다.");
-			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			stmt = conn.createStatement();
 			String sql = "select * from emp order by deptno";
 			rs = stmt.executeQuery(sql);
 
 			while(rs.next()) {
 				System.out.println(rs.getInt(1) +"\t"+ rs.getString(2)+"\t"+rs.getString(3)+"\t"+rs.getInt(4)+"\t"+
-						rs.getString(5) +"\t"+ rs.getInt(6)+"\t"+rs.getInt(7)+"\t"+rs.getInt(8));	
-				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+						rs.getString(5) +"\t"+ rs.getInt(6)+"\t"+rs.getInt(7)+"\t"+rs.getInt(8));
+				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			}
 
 		}catch (ClassNotFoundException e){
@@ -369,10 +369,10 @@ public class JDBC_Main {
 
 
 		while(true) {
-			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-			System.out.println("EMP 메뉴 선택");
-			System.out.println("1. 전체 사원리스트 2. 신규사원등록 3. 사원검색 4. 사원정보 수정 \n 5 사원정보삭제 6. 상위메뉴로");
-			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			System.out.println("	EMP 메뉴 선택");
+			System.out.println("	1. 전체 사원리스트	2. 신규사원등록	3. 사원검색	4. 사원정보수정	\n	5. 사원정보삭제	6. 상위메뉴로");
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 
 			int select = input.nextInt();
 			input.nextLine();	
@@ -406,8 +406,8 @@ public class JDBC_Main {
 
 		while(true) {
 			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-			System.out.println("DEPT 메뉴 선택");
-			System.out.println("1. 전체 부서리스트 2. 신규입력 3. 검색 4. 수정 5. 삭제 6. 상위메뉴로 ");
+			System.out.println("	DEPT 메뉴 선택");
+			System.out.println("	1. 전체 부서리스트	2. 신규입력	3. 검색	4. 수정	\n	5. 삭제		6. 상위메뉴로 ");
 			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			int select = input.nextInt();
 			input.nextLine();
