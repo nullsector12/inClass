@@ -6,7 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import excepClass.BadNumberException;
 
 public class JDBC_Main {
 	static Connection conn = null;
@@ -18,12 +21,35 @@ public class JDBC_Main {
 	public static void main(String[] args) {
 
 		while(true) {
-			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-			System.out.println("메뉴를 선택해주세요");
-			System.out.println("1. EMP 메뉴 2. DEPT 메뉴 3. 프로그램 종료");
-			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-			int selectMenu = input.nextInt();
-			input.nextLine();
+			int selectMenu = 0;
+			try {
+				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+				System.out.println("메뉴를 선택해주세요");
+				System.out.println("1. EMP 메뉴 2. DEPT 메뉴 3. 프로그램 종료");
+				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+				selectMenu = input.nextInt();
+				if(!(selectMenu >=1 && selectMenu <=3)) {
+					BadNumberException e = new BadNumberException("잘못된 메뉴 입력");
+					throw e;
+				}
+			}catch (InputMismatchException e) {
+				System.out.println("정상적인 메뉴 번호 입력이 되지 않았습니다.");
+				System.out.println("숫자를 다시 입력해주세요.");
+				continue;
+
+			}catch(BadNumberException e) {
+				System.out.println("메뉴 범위를 벗어난 입력입니다.");
+				System.out.println("숫자를 다시 입력해주세요.");
+				continue;
+
+			} catch (Exception e) {
+				System.out.println("정상적인 메뉴 번호 입력이 되지 않았습니다.");
+				System.out.println("숫자를 다시 입력해주세요.");
+				continue;
+
+			}finally {
+				input.nextLine();
+			}
 			switch (selectMenu) {
 			case 1 : 
 				empMenu();
@@ -37,6 +63,8 @@ public class JDBC_Main {
 			}
 		}
 	}
+
+
 
 	// 리스트 출력기능
 	public static void allEmpInfo() {
@@ -71,15 +99,15 @@ public class JDBC_Main {
 			if(stmt != null ) {
 				try {
 					stmt.close();
-				}catch(SQLException e2) {
-					e2.printStackTrace();
+				}catch(SQLException e1) {
+					e1.printStackTrace();
 				}
 			}
 			if(rs != null) {
 				try {
 					rs.close();
-				}catch(SQLException e1) {
-					e1.printStackTrace();
+				}catch(SQLException e2) {
+					e2.printStackTrace();
 				}
 			}
 			if(conn != null) {
@@ -369,13 +397,37 @@ public class JDBC_Main {
 
 
 		while(true) {
+			int select = 0;
+
 			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			System.out.println("	EMP 메뉴 선택");
 			System.out.println("	1. 전체 사원리스트	2. 신규사원등록	3. 사원검색	4. 사원정보수정	\n	5. 사원정보삭제	6. 상위메뉴로");
 			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			try {
+				select = input.nextInt();
+				input.nextLine();	
+				if(!(select >= 1 && select <= 6)) {
+					BadNumberException e = new BadNumberException("잘못된 메뉴 입력");
+					throw e;
+				}
+			}catch (InputMismatchException e) {
+				System.out.println("정상적인 메뉴 번호 입력이 되지 않았습니다.");
+				System.out.println("숫자를 다시 입력해주세요.");
+				continue;
 
-			int select = input.nextInt();
-			input.nextLine();	
+			}catch(BadNumberException e) {
+				System.out.println("메뉴 범위를 벗어난 입력입니다.");
+				System.out.println("숫자를 다시 입력해주세요.");
+				continue;
+
+			} catch (Exception e) {
+				System.out.println("정상적인 메뉴 번호 입력이 되지 않았습니다.");
+				System.out.println("숫자를 다시 입력해주세요.");
+				continue;
+
+			}finally {
+				input.nextLine();
+			}
 			switch (select) {
 			case 1: 
 				System.out.println("전체 사원 리스트를 출력합니다.");
@@ -402,15 +454,40 @@ public class JDBC_Main {
 			}
 		}
 	}
+
 	public static void deptMenu() {
 
 		while(true) {
+			int select = 0;
 			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 			System.out.println("	DEPT 메뉴 선택");
 			System.out.println("	1. 전체 부서리스트	2. 신규입력	3. 검색	4. 수정	\n	5. 삭제		6. 상위메뉴로 ");
 			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-			int select = input.nextInt();
-			input.nextLine();
+			try {
+				select = input.nextInt();
+				input.nextLine();
+				if(!(select >= 1 && select <= 6)) {
+					BadNumberException e = new BadNumberException("잘못된 메뉴 입력");
+					throw e;
+				}
+			}catch (InputMismatchException e) {
+				System.out.println("정상적인 메뉴 번호 입력이 되지 않았습니다.");
+				System.out.println("숫자를 다시 입력해주세요.");
+				continue;
+
+			}catch(BadNumberException e) {
+				System.out.println("메뉴 범위를 벗어난 입력입니다.");
+				System.out.println("숫자를 다시 입력해주세요.");
+				continue;
+
+			} catch (Exception e) {
+				System.out.println("정상적인 메뉴 번호 입력이 되지 않았습니다.");
+				System.out.println("숫자를 다시 입력해주세요.");
+				continue;
+
+			}finally {
+				input.nextLine();
+			}
 			switch (select) {
 			case 1: 
 				System.out.println("DEPT 테이블의 모든 정보를 출력합니다.");
@@ -419,7 +496,7 @@ public class JDBC_Main {
 			case 2:
 				inputDeptInfo();
 				System.out.println("새로운 정보를 입력합니다.");
-			break;
+				break;
 			case 3:
 				System.out.println("부서정보를 검색합니다.");
 				searchDeptInfo();
@@ -439,7 +516,8 @@ public class JDBC_Main {
 		}
 	}
 
-// 모든 dept정보 출력
+
+	// 모든 dept정보 출력
 	public static void allDeptInfo() {
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
@@ -505,7 +583,7 @@ public class JDBC_Main {
 		System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
 		try {
 			Class.forName("oracle.jdbc.driver.OracleDriver");
-			
+
 
 			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 			String user = "scott";
@@ -563,132 +641,132 @@ public class JDBC_Main {
 			}
 		}
 	}
-	
+
 	// 입력한 부서이름 or 지역에 해당하는 정보 출력
 	public static void searchDeptInfo() {
 
-			while(true) {
-				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-				System.out.println("메뉴 선택");
-				System.out.println("1. 부서이름 검색 2. 부서지역 검색 3. 상위메뉴 이동");
-				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-				String select = input.nextLine();
-				switch(Integer.parseInt(select)) {
-				case 1: 
-					System.out.println("부서이름으로 검색합니다.");
-					searchDname();
-					break;
-				case 2:
-					System.out.println("부서지역으로 검색합니다.");
-					searchLoc();
-					break;
-				case 3: 
-					System.out.println("상위 메뉴로 이동합니다.");
-					return;
-				}
+		while(true) {
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			System.out.println("메뉴 선택");
+			System.out.println("1. 부서이름 검색 2. 부서지역 검색 3. 상위메뉴 이동");
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			String select = input.nextLine();
+			switch(Integer.parseInt(select)) {
+			case 1: 
+				System.out.println("부서이름으로 검색합니다.");
+				searchDname();
+				break;
+			case 2:
+				System.out.println("부서지역으로 검색합니다.");
+				searchLoc();
+				break;
+			case 3: 
+				System.out.println("상위 메뉴로 이동합니다.");
+				return;
 			}
+		}
 	}
-		public static void searchDname() {
-			try {
-				Class.forName("oracle.jdbc.driver.OracleDriver");
+	public static void searchDname() {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 
-				String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-				String user = "scott";
-				String pw = "gkskvhqnvhtn123";
-				conn = DriverManager.getConnection(url, user, pw);
+			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String user = "scott";
+			String pw = "gkskvhqnvhtn123";
+			conn = DriverManager.getConnection(url, user, pw);
 
-				stmt = conn.createStatement();
+			stmt = conn.createStatement();
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			System.out.println("검색 할 부서명을 입력해주세요.");
+			String searchDname = input.nextLine();
+			String searchSql = "select * from dept where dname='" + searchDname +"'";
+			rs = stmt.executeQuery(searchSql);
+
+			while(rs.next()) {
 				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-				System.out.println("검색 할 부서명을 입력해주세요.");
-				String searchDname = input.nextLine();
-				String searchSql = "select * from dept where dname='" + searchDname +"'";
-				rs = stmt.executeQuery(searchSql);
+				System.out.println(rs.getInt(1) +"\t"+ rs.getString(2)+"\t"+rs.getString(3));	
+				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			}
 
-				while(rs.next()) {
-					System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-					System.out.println(rs.getInt(1) +"\t"+ rs.getString(2)+"\t"+rs.getString(3));	
-					System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		}catch (ClassNotFoundException e){
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException e1) {
+					e1.printStackTrace();
 				}
-
-			}catch (ClassNotFoundException e){
-				e.printStackTrace();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				if(rs != null) {
-					try {
-						rs.close();
-					}catch(SQLException e1) {
-						e1.printStackTrace();
-					}
+			}
+			if(stmt != null ) {
+				try {
+					stmt.close();
+				}catch(SQLException e2) {
+					e2.printStackTrace();
 				}
-				if(stmt != null ) {
-					try {
-						stmt.close();
-					}catch(SQLException e2) {
-						e2.printStackTrace();
-					}
-				}
-				if(conn != null) {
-					try {
-						conn.close();
-					}catch (SQLException e3) {
-						e3.printStackTrace();
-					}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				}catch (SQLException e3) {
+					e3.printStackTrace();
 				}
 			}
 		}
-			
-		public static void searchLoc() {
-			try {
-				Class.forName("oracle.jdbc.driver.OracleDriver");
+	}
 
-				String url = "jdbc:oracle:thin:@localhost:1521:orcl";
-				String user = "scott";
-				String pw = "gkskvhqnvhtn123";
-				conn = DriverManager.getConnection(url, user, pw);
+	public static void searchLoc() {
+		try {
+			Class.forName("oracle.jdbc.driver.OracleDriver");
 
-				stmt = conn.createStatement();
+			String url = "jdbc:oracle:thin:@localhost:1521:orcl";
+			String user = "scott";
+			String pw = "gkskvhqnvhtn123";
+			conn = DriverManager.getConnection(url, user, pw);
+
+			stmt = conn.createStatement();
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			System.out.println("검색 할 부서지역을 입력해주세요.");
+			String searchLoc = input.nextLine();
+			String searchSql = "select * from dept where loc='" + searchLoc +"'";
+			rs = stmt.executeQuery(searchSql);
+
+			while(rs.next()) {
 				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-				System.out.println("검색 할 부서지역을 입력해주세요.");
-				String searchLoc = input.nextLine();
-				String searchSql = "select * from dept where loc='" + searchLoc +"'";
-				rs = stmt.executeQuery(searchSql);
+				System.out.println(rs.getInt(1) +"\t"+ rs.getString(2)+"\t"+rs.getString(3));	
+				System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			}
 
-				while(rs.next()) {
-					System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
-					System.out.println(rs.getInt(1) +"\t"+ rs.getString(2)+"\t"+rs.getString(3));	
-					System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+		}catch (ClassNotFoundException e){
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}finally {
+			if(rs != null) {
+				try {
+					rs.close();
+				}catch(SQLException e1) {
+					e1.printStackTrace();
 				}
-
-			}catch (ClassNotFoundException e){
-				e.printStackTrace();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}finally {
-				if(rs != null) {
-					try {
-						rs.close();
-					}catch(SQLException e1) {
-						e1.printStackTrace();
-					}
+			}
+			if(stmt != null ) {
+				try {
+					stmt.close();
+				}catch(SQLException e2) {
+					e2.printStackTrace();
 				}
-				if(stmt != null ) {
-					try {
-						stmt.close();
-					}catch(SQLException e2) {
-						e2.printStackTrace();
-					}
-				}
-				if(conn != null) {
-					try {
-						conn.close();
-					}catch (SQLException e3) {
-						e3.printStackTrace();
-					}
+			}
+			if(conn != null) {
+				try {
+					conn.close();
+				}catch (SQLException e3) {
+					e3.printStackTrace();
 				}
 			}
 		}
+	}
 	// 입력된 부서번호에 해당하는 정보수정
 	public static void changeDeptInfo() {
 		try {
