@@ -8,18 +8,23 @@ public class Contact{
 	private String cn_address;
 	private String cn_email;
 	private String kategorie;
+	
 //	 대학 선택 정보
 	private String cn_u_major;
 	private int cn_u_grade;
+	
 //	 회사 선택 정보
 	private String cn_cm_cname;
 	private String cn_cm_dname;
 	private String cn_cm_job;
+	
 //	 카페 선택 정보
 	private String cn_cf_cname;
 	private String cn_cf_nickname;
+	
 //	 가족 선택 정보
 	private String cn_fm_relationship;
+	
 	
 	public Contact() {
 		
@@ -51,9 +56,6 @@ public class Contact{
 		this.cn_fm_relationship = cn_fm_relationship;
 	}
 	
-	public void insertBasicInfo(int pidx, String cn_name, String cn_phonenumber,String  cn_address,String  cn_email) {
-
-	}
 
 //	public void Contact_company(int pidx, String cn_name, String cn_phonenumber, String cn_address, String cn_email, String kategorie, String cn_cm_cname, String cn_cm_dname, String cn_cm_job) {
 //		this.pidx = pidx;

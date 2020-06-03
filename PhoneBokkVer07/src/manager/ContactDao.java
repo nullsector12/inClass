@@ -122,7 +122,6 @@ public class ContactDao {
 //		List<Contact> contList= new ArrayList<Contact>();
 //
 //		try {
-//			// 2. 데이터베이스 연결
 //			conn = ConnectionProvider.getConnection();
 //
 //			String sql = "select * from contact  order by pidx";
@@ -170,7 +169,6 @@ public class ContactDao {
 			e.printStackTrace();
 		} finally {
 
-			// 4. 데이터베이스 연결 종료
 			if (rs != null) {
 				try {
 					rs.close();
@@ -253,9 +251,7 @@ public class ContactDao {
 					e1.printStackTrace();
 				}
 			}
-
 		}
-
 		return list;
 	}
 
@@ -281,7 +277,6 @@ public class ContactDao {
 			e.printStackTrace();
 		} finally {
 
-			// 4. 데이터베이스 연결 종료
 			if (rs != null) {
 				try {
 					rs.close();
@@ -306,11 +301,10 @@ public class ContactDao {
 				}
 			}
 		}
-		
 		return resultCnt;
-		
 	}
 
+	/* 카테고리별 변경 메서드로 변경
 	public int contChangeInfo(Contact newCont, Connection conn) {
 
 		Statement stmt = null;
@@ -362,8 +356,10 @@ public class ContactDao {
 
 		return resultCnt;
 	}
+	*/
 	
 	public int contSearchCount(String searchName, Connection conn) {
+		
 		PreparedStatement pstmt =null;
 		ResultSet rs = null;
 		int rowCnt = 0;
@@ -412,8 +408,216 @@ public class ContactDao {
 		return cont;
 	}
 	
-	public void univChangeInfo() {
-		
+	// 대학친구 정보 변경
+	public int univChangeInfo(Contact univCont, Connection conn) {
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int resultCnt = 0;
+
+		try {
+
+			String sql = "update contact  set cn_name=?, cn_phonenumber=?, cn_address=?, cn_email=?, cn_u_major=?, cn_u_grade=?  where pidx=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, univCont.getCn_name());
+			pstmt.setString(2, univCont.getCn_phonenumber());
+			pstmt.setString(3, univCont.getCn_address());
+			pstmt.setString(4, univCont.getCn_email());
+			pstmt.setString(5, univCont.getCn_u_major());
+			pstmt.setInt(6, univCont.getCn_u_grade());
+			pstmt.setInt(7, univCont.getPidx());
+
+			resultCnt = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return resultCnt;
+	}
+	
+	// 회사동료 정보 변경
+	public int comChangeInfo(Contact comCont, Connection conn) {
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int resultCnt = 0;
+
+		try {
+
+			String sql = "update contact  set  cn_name=?, cn_phonenumber=?, cn_address=?, cn_email=?, cn_cm_cname=?, cn_cm_dname=?, cn_cm_job=?  where pidx=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, comCont.getCn_name());
+			pstmt.setString(2, comCont.getCn_phonenumber());
+			pstmt.setString(3, comCont.getCn_address());
+			pstmt.setString(4, comCont.getCn_email());
+			pstmt.setString(5, comCont.getCn_cm_cname());
+			pstmt.setString(6, comCont.getCn_cm_dname());
+			pstmt.setString(7, comCont.getCn_cm_job());
+			pstmt.setInt(8, comCont.getPidx());
+
+			resultCnt = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return resultCnt;
+	}
+	
+	// 카페회원 정보 변경
+	public int cafeChangeInfo(Contact cafeCont, Connection conn) {
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int resultCnt = 0;
+
+		try {
+
+			String sql = "update contact  set  cn_name=?, cn_phonenumber=?, cn_address=?, cn_email=?, cn_cf_cname=?, cn_cf_nickname=?  where pidx=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, cafeCont.getCn_name());
+			pstmt.setString(2, cafeCont.getCn_phonenumber());
+			pstmt.setString(3, cafeCont.getCn_address());
+			pstmt.setString(4, cafeCont.getCn_email());
+			pstmt.setString(5, cafeCont.getCn_cf_cname());
+			pstmt.setString(6, cafeCont.getCn_cf_nickname());
+			pstmt.setInt(7, cafeCont.getPidx());
+
+			resultCnt = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return resultCnt;
+	}
+
+	// 가족 정보 변경
+	public int familyChangeInfo(Contact famCont, Connection conn) {
+		Statement stmt = null;
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		int resultCnt = 0;
+
+		try {
+
+			String sql = "update contact  set  cn_name=?, cn_phonenumber=?, cn_address=?, cn_email=?, cn_fm_relationship=?  where pidx=?";
+
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, famCont.getCn_name());
+			pstmt.setString(2, famCont.getCn_phonenumber());
+			pstmt.setString(3, famCont.getCn_address());
+			pstmt.setString(4, famCont.getCn_email());
+			pstmt.setString(5, famCont.getCn_fm_relationship());
+			pstmt.setInt(6, famCont.getPidx());
+
+			resultCnt = pstmt.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+
+			if (rs != null) {
+				try {
+					rs.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+			if (stmt != null) {
+				try {
+					stmt.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+
+			if (pstmt != null) {
+				try {
+					pstmt.close();
+				} catch (SQLException e1) {
+					e1.printStackTrace();
+				}
+			}
+		}
+		return resultCnt;
 	}
 	
 }
