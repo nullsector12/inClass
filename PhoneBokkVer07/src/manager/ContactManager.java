@@ -18,8 +18,6 @@ public class ContactManager{
 	public void contactInsert() {
 
 		// 기본정보 입력
-		System.out.println("일련번호: ");
-		int pidx = Integer.parseInt(ContactMain.input.nextLine());
 		System.out.println("친구 이름 : ");
 		String cn_name = ContactMain.input.nextLine();
 		System.out.println("전화번호 : ");
@@ -29,134 +27,143 @@ public class ContactManager{
 		System.out.println("이메일 : ");
 		String cn_email = ContactMain.input.nextLine();
 
-		// 사용자 카테고리 선택
-		System.out.println("정보를 저장할 카테고리를 선택해주세요.");
-		System.out.println("1. 대학친구	2. 직장동료	3. 카페회원	4. 가족	5. 저장 취소");
-		select = Integer.parseInt(ContactMain.input.nextLine());
+		while(true) {
+			// 사용자 카테고리 선택
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			System.out.println("	정보를 저장할 카테고리를 선택해주세요.");
+			System.out.println("	1. 대학친구	2. 직장동료	3. 카페회원	4. 가족	5. 저장 취소");
+			System.out.println("━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━");
+			select = Integer.parseInt(ContactMain.input.nextLine());
 
-		switch (select) {
+			switch (select) {
 
-		case 1:
-			String kategorie = "univ";
-			System.out.println("전공 : ");
-			String cn_u_major = ContactMain.input.nextLine();
-			System.out.println("학년 : ");
-			int cn_u_grade = Integer.parseInt(ContactMain.input.nextLine());
+			case 1:
+				String kategorie = "univ";
+				System.out.println("전공 : ");
+				String cn_u_major = ContactMain.input.nextLine();
+				System.out.println("학년 : ");
+				int cn_u_grade = Integer.parseInt(ContactMain.input.nextLine());
 
-			String cn_cm_cname = null;
-			String cn_cm_dname = null;
-			String cn_cm_job = null;
-			String cn_cf_cname = null;
-			String cn_cf_nickname = null;
-			String cn_fm_relationship = null;
-			cont = new  Contact(pidx, cn_name, cn_phonenumber,  cn_address, cn_email, kategorie, 
-					cn_u_major, cn_u_grade, 
-					cn_cm_cname, cn_cm_dname, cn_cm_job, 
-					cn_cf_cname, cn_cf_nickname, 
-					cn_fm_relationship);
+				String cn_cm_cname = null;
+				String cn_cm_dname = null;
+				String cn_cm_job = null;
+				String cn_cf_cname = null;
+				String cn_cf_nickname = null;
+				String cn_fm_relationship = null;
+				cont = new  Contact(0, cn_name, cn_phonenumber,  cn_address, cn_email, kategorie, 
+						cn_u_major, cn_u_grade, 
+						cn_cm_cname, cn_cm_dname, cn_cm_job, 
+						cn_cf_cname, cn_cf_nickname, 
+						cn_fm_relationship);
 
-			resultCnt = daoCon.contactInsert(cont);
+				resultCnt = daoCon.contactInsert(cont);
 
-			if (resultCnt > 0) {
-				System.out.println("정상적으로 입력 되었습니다.");
-				System.out.println(resultCnt + "행이 입력되었습니다.");
-			} else {
-				System.out.println("입력이 되지않았습니다. 확인후 재 시도해주세요.");
+				if (resultCnt > 0) {
+					System.out.println("정상적으로 입력 되었습니다.");
+					System.out.println(resultCnt + "행이 입력되었습니다.");
+				} else {
+					System.out.println("입력이 되지않았습니다. 확인후 재 시도해주세요.");
+				}
+				break;
+
+			case 2:
+				kategorie = "com";
+				cn_u_major = null;
+				cn_u_grade = 0;
+
+				System.out.println("회사명 : ");
+				cn_cm_cname = ContactMain.input.nextLine();
+				System.out.println("부서명 : ");
+				cn_cm_dname = ContactMain.input.nextLine();
+				System.out.println("직급 : ");
+				cn_cm_job = ContactMain.input.nextLine();
+
+				cn_cf_cname = null;			
+				cn_cf_nickname = null;
+				cn_fm_relationship = null;
+				cont = new  Contact(0, cn_name, cn_phonenumber,  cn_address, cn_email, kategorie, 
+						cn_u_major, cn_u_grade, 
+						cn_cm_cname, cn_cm_dname, cn_cm_job, 
+						cn_cf_cname, cn_cf_nickname, 
+						cn_fm_relationship);
+				resultCnt = daoCon.contactInsert(cont);
+
+				if (resultCnt > 0) {
+					System.out.println("정상적으로 입력 되었습니다.");
+					System.out.println(resultCnt + "행이 입력되었습니다.");
+				} else {
+					System.out.println("입력이 되지않았습니다. 확인후 재 시도해주세요.");
+				}
+				break;
+
+			case 3:
+				kategorie="cafe";
+
+				cn_u_major = null;
+				cn_u_grade = 0;
+				cn_cm_cname = null;
+				cn_cm_dname = null;
+				cn_cm_job = null;
+
+				System.out.println("카페이름 : ");
+				cn_cf_cname = ContactMain.input.nextLine();
+				System.out.println("닉네임 : ");
+				cn_cf_nickname = ContactMain.input.nextLine();
+
+				cn_fm_relationship = null;
+				cont = new  Contact(0, cn_name, cn_phonenumber,  cn_address, cn_email, kategorie, 
+						cn_u_major, cn_u_grade, 
+						cn_cm_cname, cn_cm_dname, cn_cm_job, 
+						cn_cf_cname, cn_cf_nickname, 
+						cn_fm_relationship);
+				resultCnt = daoCon.contactInsert(cont);
+
+				if (resultCnt > 0) {
+					System.out.println("정상적으로 입력 되었습니다.");
+					System.out.println(resultCnt + "행이 입력되었습니다.");
+				} else {
+					System.out.println("입력이 되지않았습니다. 확인후 재 시도해주세요.");
+				}
+				break;
+
+			case 4:
+				kategorie="family";
+				cn_u_major = null;
+				cn_u_grade = 0;
+				cn_cm_cname = null;
+				cn_cm_dname = null;
+				cn_cm_job = null;
+				cn_cf_cname = null;
+				cn_cf_nickname = null;
+
+				System.out.println("가족과의 관계 : ");
+				cn_fm_relationship = ContactMain.input.nextLine();
+				cont = new  Contact(0, cn_name, cn_phonenumber,  cn_address, cn_email, kategorie, 
+						cn_u_major, cn_u_grade, 
+						cn_cm_cname, cn_cm_dname, cn_cm_job, 
+						cn_cf_cname, cn_cf_nickname, 
+						cn_fm_relationship);
+				resultCnt = daoCon.contactInsert(cont);
+
+				if (resultCnt > 0) {
+					System.out.println("정상적으로 입력 되었습니다.");
+					System.out.println(resultCnt + "행이 입력되었습니다.");
+				} else {
+					System.out.println("입력이 되지않았습니다. 확인후 재 시도해주세요.");
+				}
+				break;
+
+			case 5: 
+				System.out.println("정보저장을 취소합니다. 상위 메뉴로 돌아갑니다.");
+				return;
+
+			default :
+				System.out.println("잘못된 메뉴 선택입니다.");
+				System.out.println("메뉴선택을 다시 해주십시오.");	
+				continue;
 			}
-			break;
-
-		case 2:
-			kategorie = "com";
-			cn_u_major = null;
-			cn_u_grade = 0;
-
-			System.out.println("회사명 : ");
-			cn_cm_cname = ContactMain.input.nextLine();
-			System.out.println("부서명 : ");
-			cn_cm_dname = ContactMain.input.nextLine();
-			System.out.println("직급 : ");
-			cn_cm_job = ContactMain.input.nextLine();
-
-			cn_cf_cname = null;			
-			cn_cf_nickname = null;
-			cn_fm_relationship = null;
-			cont = new  Contact(pidx, cn_name, cn_phonenumber,  cn_address, cn_email, kategorie, 
-					cn_u_major, cn_u_grade, 
-					cn_cm_cname, cn_cm_dname, cn_cm_job, 
-					cn_cf_cname, cn_cf_nickname, 
-					cn_fm_relationship);
-			resultCnt = daoCon.contactInsert(cont);
-
-			if (resultCnt > 0) {
-				System.out.println("정상적으로 입력 되었습니다.");
-				System.out.println(resultCnt + "행이 입력되었습니다.");
-			} else {
-				System.out.println("입력이 되지않았습니다. 확인후 재 시도해주세요.");
-			}
-			break;
-
-		case 3:
-			kategorie="cafe";
-
-			cn_u_major = null;
-			cn_u_grade = 0;
-			cn_cm_cname = null;
-			cn_cm_dname = null;
-			cn_cm_job = null;
-
-			System.out.println("카페이름 : ");
-			cn_cf_cname = ContactMain.input.nextLine();
-			System.out.println("닉네임 : ");
-			cn_cf_nickname = ContactMain.input.nextLine();
-
-			cn_fm_relationship = null;
-			cont = new  Contact(pidx, cn_name, cn_phonenumber,  cn_address, cn_email, kategorie, 
-					cn_u_major, cn_u_grade, 
-					cn_cm_cname, cn_cm_dname, cn_cm_job, 
-					cn_cf_cname, cn_cf_nickname, 
-					cn_fm_relationship);
-			resultCnt = daoCon.contactInsert(cont);
-
-			if (resultCnt > 0) {
-				System.out.println("정상적으로 입력 되었습니다.");
-				System.out.println(resultCnt + "행이 입력되었습니다.");
-			} else {
-				System.out.println("입력이 되지않았습니다. 확인후 재 시도해주세요.");
-			}
-			break;
-
-		case 4:
-			kategorie="family";
-			cn_u_major = null;
-			cn_u_grade = 0;
-			cn_cm_cname = null;
-			cn_cm_dname = null;
-			cn_cm_job = null;
-			cn_cf_cname = null;
-			cn_cf_nickname = null;
-
-			System.out.println("가족과의 관계 : ");
-			cn_fm_relationship = ContactMain.input.nextLine();
-			cont = new  Contact(pidx, cn_name, cn_phonenumber,  cn_address, cn_email, kategorie, 
-					cn_u_major, cn_u_grade, 
-					cn_cm_cname, cn_cm_dname, cn_cm_job, 
-					cn_cf_cname, cn_cf_nickname, 
-					cn_fm_relationship);
-			resultCnt = daoCon.contactInsert(cont);
-
-			if (resultCnt > 0) {
-				System.out.println("정상적으로 입력 되었습니다.");
-				System.out.println(resultCnt + "행이 입력되었습니다.");
-			} else {
-				System.out.println("입력이 되지않았습니다. 확인후 재 시도해주세요.");
-			}
-			break;
-
-		case 5: 
-			System.out.println("정보저장을 취소합니다. 상위 메뉴로 돌아갑니다.");
 			return;
 		}
-		return;
 	}
 
 	public void contList() {
@@ -235,7 +242,7 @@ public class ContactManager{
 			conn = ConnectionProvider.getConnection();
 
 			conn.setAutoCommit(false); 
-			
+
 			System.out.println("수정하고자 하는 친구의 이름 : ");
 			String searchName = ContactMain.input.nextLine();
 
@@ -269,20 +276,20 @@ public class ContactManager{
 
 				System.out.println("이메일 ( " + cont.getCn_email() + "  ) : ");
 				String cn_email = ContactMain.input.nextLine();
-				
+
 				// 카테고리 확인을 통한 정보수정 (추가중)
-/*				String checkKategorie = cont.getKategorie();
+				/*				String checkKategorie = cont.getKategorie();
 				switch(checkKategorie) {
 				case "univ" :
 					System.out.println("학과 ( " + cont.getCn_u_major() + " ) : ");
 					String cn_u_major = ContactMain.input.nextLine();
 					System.out.println("학년 ( " + cont.getCn_u_grade() + " ) : ");
 					int cn_u_grade = Integer.parseInt(ContactMain.input.nextLine());
-					
+
 					Contact newUniv = new Contact(cont.getPidx(), cn_name, cn_phonenumber, cn_address, cn_email, cont.getKategorie(), cn_u_major, cn_u_grade,
 							cont.getCn_cm_cname(), cont.getCn_cm_dname(), cont.getCn_cm_job(), cont.getCn_cf_cname(), cont.getCn_cf_nickname(), cont.getCn_fm_relationship());
 					break;
-					
+
 				case "com" :
 					System.out.println("회사명 ( " + cont.getCn_cm_cname() + "  ) : ");
 					String cn_cm_cname = ContactMain.input.nextLine();
@@ -295,27 +302,27 @@ public class ContactManager{
 					Contact newCom = new Contact(cont.getPidx(), cn_name, cn_phonenumber, cn_address, cn_email, cont.getKategorie(), cont.getCn_u_major(), cont.getCn_u_grade(),
 							cn_cm_cname, cn_cm_dname, cn_cm_job, cont.getCn_cf_cname(), cont.getCn_cf_nickname(), cont.getCn_fm_relationship());
 					break;
-					
+
 				case "cafe" :
 					System.out.println("카페명 ( " + cont.getCn_cf_cname() + "  ) : ");
 					String cn_cf_cname = ContactMain.input.nextLine();
 
 					System.out.println("닉네임 ( " + cont.getCn_cf_nickname() + "  ) : ");
 					String cn_cf_nickname = ContactMain.input.nextLine();
-					
+
 					Contact newCafe = new Contact(cont.getPidx(), cn_name, cn_phonenumber, cn_address, cn_email, cont.getKategorie(), cont.getCn_u_major(), cont.getCn_u_grade(),
 					cont.getCn_cm_cname(), cont.getCn_cm_dname(), cont.getCn_cm_job(), cn_cf_cname,  cn_cf_nickname, cont.getCn_fm_relationship());
 					break;
-					
+
 				case "family" :
 					System.out.println("가족관계 ( " + cont.getCn_fm_relationship() + "  ) : ");
 					String cn_fm_relationship = ContactMain.input.nextLine();
-					
+
 					Contact newFamily = new Contact(cont.getPidx(), cn_name, cn_phonenumber, cn_address, cn_email, cont.getKategorie(), cont.getCn_u_major(), cont.getCn_u_grade(),
 					cont.getCn_cm_cname(), cont.getCn_cm_dname(), cont.getCn_cm_job(), cont.getCn_cf_cname(), cont.getCn_cf_nickname(), cn_fm_relationship);
 					break;
 				}*/
-				
+
 				Contact newCont = new Contact(cont.getPidx(), cn_name, cn_phonenumber, cn_address, cn_email, cont.getKategorie(), cont.getCn_u_major(), cont.getCn_u_grade(),
 						cont.getCn_cm_cname(), cont.getCn_cm_dname(), cont.getCn_cm_job(), cont.getCn_cf_cname(), cont.getCn_cf_nickname(), cont.getCn_fm_relationship());
 

@@ -25,23 +25,22 @@ public class ContactDao {
 
 			String sql = "insert into Contact (pidx, cn_name, cn_phonenumber, cn_address, cn_email, kategorie, cn_u_major, "
 					+ "cn_u_grade, cn_cm_cname, cn_cm_dname, cn_cm_job, cn_cf_cname, cn_cf_nickname, cn_fm_relationship)   "
-					+ "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+					+ "values (contact_pidx_seq.nextval, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
 			pstmt = conn.prepareStatement(sql);
-			pstmt.setInt(1, cont.getPidx());
-			pstmt.setString(2, cont.getCn_name());
-			pstmt.setString(3, cont.getCn_phonenumber());
-			pstmt.setString(4, cont.getCn_address());
-			pstmt.setString(5, cont.getCn_email());
-			pstmt.setString(6, cont.getKategorie());
-			pstmt.setString(7, cont.getCn_u_major());
-			pstmt.setInt(8, cont.getCn_u_grade());
-			pstmt.setString(9, cont.getCn_cm_cname());
-			pstmt.setString(10, cont.getCn_cm_dname());
-			pstmt.setString(11, cont.getCn_cm_job());
-			pstmt.setString(12, cont.getCn_cf_cname());
-			pstmt.setString(13, cont.getCn_cf_nickname());
-			pstmt.setString(14, cont.getCn_fm_relationship());
+			pstmt.setString(1, cont.getCn_name());
+			pstmt.setString(2, cont.getCn_phonenumber());
+			pstmt.setString(3, cont.getCn_address());
+			pstmt.setString(4, cont.getCn_email());
+			pstmt.setString(5, cont.getKategorie());
+			pstmt.setString(6, cont.getCn_u_major());
+			pstmt.setInt(7, cont.getCn_u_grade());
+			pstmt.setString(8, cont.getCn_cm_cname());
+			pstmt.setString(9, cont.getCn_cm_dname());
+			pstmt.setString(10, cont.getCn_cm_job());
+			pstmt.setString(11, cont.getCn_cf_cname());
+			pstmt.setString(12, cont.getCn_cf_nickname());
+			pstmt.setString(13, cont.getCn_fm_relationship());
 
 			resultCnt = pstmt.executeUpdate();
 
@@ -78,8 +77,8 @@ public class ContactDao {
 	}
 
 	public List<Contact> contList() {
-
-
+		
+		// Statement 문 사용
 		Connection conn = null;
 		Statement stmt = null;
 		PreparedStatement pstmt = null;
@@ -88,37 +87,83 @@ public class ContactDao {
 		List<Contact> contList= new ArrayList<>();
 
 		try {
-			// 2. 데이터베이스 연결
-			conn = ConnectionProvider.getConnection();
+		conn = ConnectionProvider.getConnection();
+		String sql = "select * from contact  order by pidx";
+		stmt = conn.createStatement();
+		rs = stmt.executeQuery(sql);
 
-			String sql = "select * from contact  order by pidx";
+		while (rs.next()) {
 
-			stmt = conn.createStatement();
+			Contact cont = new Contact(
 
-			rs = stmt.executeQuery(sql);
+					rs.getInt("pidx"),
+					rs.getString("cn_name"),
+					rs.getString("cn_phonenumber"),
+					rs.getString("cn_address"),
+					rs.getString("cn_email"),
+					rs.getString("kategorie"),
+					rs.getString("cn_u_major"),
+					rs.getInt("cn_u_grade"),
+					rs.getString("cn_cm_cname"),
+					rs.getString("cn_cm_dname"),
+					rs.getString("cn_cm_job"),
+					rs.getString("cn_cf_cname"),
+					rs.getString("cn_cf_nickname"),
+					rs.getString("cn_fm_relationship")
+					);
 
-
-			while (rs.next()) {
-
-				Contact cont = new Contact(
-
-						rs.getInt("pidx"),
-						rs.getString("cn_name"),
-						rs.getString("cn_phonenumber"),
-						rs.getString("cn_address"),
-						rs.getString("cn_email"),
-						rs.getString("kategorie"),
-						rs.getString("cn_u_major"),
-						rs.getInt("cn_u_grade"),
-						rs.getString("cn_cm_cname"),
-						rs.getString("cn_cm_dname"),
-						rs.getString("cn_cm_job"),
-						rs.getString("cn_cf_cname"),
-						rs.getString("cn_cf_nickname"),
-						rs.getString("cn_fm_relationship")
-						);
-
-				contList.add(cont);
+			contList.add(cont);
+			
+			// PrepareStatment문 사용
+//		Connection conn = null;
+//		PreparedStatement pstmt = null;
+//		ResultSet rs = null;
+//
+//		List<Contact> contList= new ArrayList<Contact>();
+//
+//		try {
+//			// 2. 데이터베이스 연결
+//			conn = ConnectionProvider.getConnection();
+//
+//			String sql = "select * from contact  order by pidx";
+//
+//			pstmt = conn.prepareStatement(sql);
+//
+//			rs = pstmt.executeQuery();
+//			while (rs.next()) {
+//
+//						int pidx = rs.getInt("pidx");
+//						String cn_name = rs.getString("cn_name");
+//						String cn_phonenumber = rs.getString("cn_phonenumber");
+//						String cn_address = rs.getString("cn_address");
+//						String cn_email = rs.getString("cn_email");
+//						String kategorie = rs.getString("kategorie");
+//						String cn_u_major = rs.getString("cn_u_major");
+//						int cn_u_grade = rs.getInt("cn_u_grade");
+//						String cn_cm_cname = rs.getString("cn_cm_cname");
+//						String cn_cm_dname = rs.getString("cn_cm_dname");
+//						String cn_cm_job = rs.getString("cn_cm_job");
+//						String cn_cf_cname = rs.getString("cn_cf_cname");
+//						String cn_cf_nickname = rs.getString("cn_cf_nickname");
+//						String cn_fm_relationship = rs.getString("cn_fm_relationship");
+//
+//						Contact cont = new Contact();
+//						cont.setPidx(pidx);
+//						cont.setCn_name(cn_name);
+//						cont.setCn_phonenumber(cn_phonenumber);
+//						cont.setCn_address(cn_address);
+//						cont.setCn_email(cn_email);
+//						cont.setKategorie(kategorie);
+//						cont.setCn_u_major(cn_u_major);
+//						cont.setCn_u_grade(cn_u_grade);
+//						cont.setCn_cm_cname(cn_cm_cname);
+//						cont.setCn_cm_dname(cn_cm_dname);
+//						cont.setCn_cm_job(cn_cm_job);
+//						cont.setCn_cf_cname(cn_cf_cname);
+//						cont.setCn_cf_nickname(cn_cf_nickname);
+//						cont.setCn_fm_relationship(cn_fm_relationship);
+						
+//						contList.add(cont);
 			}
 
 		} catch (SQLException e) {
@@ -151,9 +196,7 @@ public class ContactDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
-
 		List<Contact> list = new ArrayList<Contact>();
-
 
 		try {
 
@@ -191,7 +234,6 @@ public class ContactDao {
 				try {
 					rs.close();
 				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
 					e1.printStackTrace();
 				}
 			}
@@ -275,7 +317,6 @@ public class ContactDao {
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		int resultCnt = 0;
-
 
 		try {
 
@@ -369,6 +410,10 @@ public class ContactDao {
 			e.printStackTrace();
 		}
 		return cont;
+	}
+	
+	public void univChangeInfo() {
+		
 	}
 	
 }

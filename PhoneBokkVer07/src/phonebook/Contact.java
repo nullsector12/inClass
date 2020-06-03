@@ -21,7 +21,11 @@ public class Contact{
 //	 가족 선택 정보
 	private String cn_fm_relationship;
 	
-	public Contact(int pidx, String cn_name, String cn_phonenumber, String cn_address, String cn_email, String kategorie, 
+	public Contact() {
+		
+	}
+	
+	public Contact( int pidx, String cn_name, String cn_phonenumber, String cn_address, String cn_email, String kategorie, 
 			String cn_u_major, int cn_u_grade, 
 			String cn_cm_cname, String cn_cm_dname, String cn_cm_job, 
 			String cn_cf_cname,String cn_cf_nickname, 
