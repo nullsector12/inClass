@@ -121,12 +121,8 @@ public class DEPTManager {
 					e1.printStackTrace();
 				}
 			}
-
-
-
 			e.printStackTrace();
 		}
-
 	}
 
 	public void deptInsert() {

@@ -46,6 +46,10 @@ public class Contact{
 		// 가족
 		this.cn_fm_relationship = cn_fm_relationship;
 	}
+	
+	public void insertBasicInfo(int pidx, String cn_name, String cn_phonenumber,String  cn_address,String  cn_email) {
+
+	}
 
 //	public void Contact_company(int pidx, String cn_name, String cn_phonenumber, String cn_address, String cn_email, String kategorie, String cn_cm_cname, String cn_cm_dname, String cn_cm_job) {
 //		this.pidx = pidx;
@@ -193,6 +197,15 @@ public class Contact{
 
 	public void setCn_fm_relationship(String cn_fm_relationship) {
 		this.cn_fm_relationship = cn_fm_relationship;
+	}
+
+	@Override
+	public String toString() {
+		return "Contact [pidx=" + pidx + ", cn_name=" + cn_name + ", cn_phonenumber=" + cn_phonenumber + ", cn_address="
+				+ cn_address + ", cn_email=" + cn_email + ", kategorie=" + kategorie + ", cn_u_major=" + cn_u_major
+				+ ", cn_u_grade=" + cn_u_grade + ", cn_cm_cname=" + cn_cm_cname + ", cn_cm_dname=" + cn_cm_dname
+				+ ", cn_cm_job=" + cn_cm_job + ", cn_cf_cname=" + cn_cf_cname + ", cn_cf_nickname=" + cn_cf_nickname
+				+ ", cn_fm_relationship=" + cn_fm_relationship + "]";
 	}
 	
 	

@@ -11,7 +11,7 @@ public class ConnectionProvider {
 		Connection conn = null;
 		String url = "jdbc:oracle:thin:@localhost:1521:orcl";
 		String user = "scott";
-		String pw = "gkskvhqnvhtn123";
+		String pw = "tiger";
 
 		try {
 			conn = DriverManager.getConnection(url, user, pw);

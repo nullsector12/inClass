@@ -25,7 +25,7 @@ create table contact    (
                         
                         cn_u_major varchar2(50),
                         cn_u_grade number(1)
-                        constraint univ_grade_ck check (cn_u_grade between 1 and 4),
+                        constraint univ_grade_ck check (cn_u_grade between 0 and 4),
                         
                         cn_cm_cname varchar2(50),
                         cn_cm_dname varchar2(50),
