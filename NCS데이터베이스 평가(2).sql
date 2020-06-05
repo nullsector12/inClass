@@ -12,7 +12,7 @@
 */
 
 create table contact    (
-                        pidx number(6) constraint p_idx_pk primary key,
+                        contact_pidx_seq number(6) constraint p_idx_pk primary key,
                         cn_name varchar2(50) not null,
                         cn_phonenumber varchar2(50) 
                         default '등록정보없음' not null,
@@ -37,6 +37,9 @@ create table contact    (
                         cn_fm_relationship varchar2(50)
                         )
 ;                           
+
+
+
 drop table contact;
 drop SEQUENCE contact_pidx_seq;
 select * from contact;

@@ -11,25 +11,25 @@
 모임이름/닉네임
 */
 
-create table contact    (
-                        pidx number(6) constraint p_idx_pk primary key,
-                        cn_name varchar2(50) not null,
-                        cn_phonenumber varchar2(50) default '등록정보없음' not null,
-                        cn_address varchar2(50) default '등록정보없음' not null,
-                        cn_email varchar2(50) not null,
-                        kategorie varchar2(50) not null
-                        constraint cn_kategorie_ck check 
-                        ( kategorie in ('univ', 'com', 'cafe', 'family') )
-                        )
+create table contact_basic  (
+                            pidx number(6) constraint p_idx_pk primary key,
+                            name varchar2(50) not null,
+                            pnum varchar2(50) default '등록정보없음' not null,
+                            address varchar2(50) default '등록정보없음' not null,
+                            email varchar2(50) not null,
+                            kategorie varchar2(50) not null
+                            constraint cn_kategorie_ck check 
+                            ( kategorie in ('univ', 'com', 'cafe', 'family') )
+                            )
 ;                           
 
 create table contact_univ   (
                             pidx number(6) constraint univ_idx_pk primary key,
-                            cn_u_major varchar2(50),
-                            cn_u_grade number(1)
-                            constraint univ_grade_ck check (cn_u_grade between 1 and 4),
-                            u_ref number(6) not null, 
-                            constraint univ_idx_FK foreign key(u_ref) 
+                            major varchar2(50),
+                            grade number(1)
+                            constraint univ_grade_ck check (grade between 1 and 4),
+                            uref number(6) not null, 
+                            constraint univ_idx_FK foreign key(uref) 
                             references contact(pidx)
                             )
 ;                      
@@ -37,33 +37,47 @@ create table contact_univ   (
 
 create table contact_company    (
                                 pidx number(6) constraint cm_idx_pk primary key,
-                                cn_cm_cname varchar2(50),
-                                cn_cm_dname varchar2(50),
-                                cn_cm_job varchar2(50),
-                                cp_ref number(6) not null, 
-                                constraint company_idx_FK foreign key(cm_ref) 
+                                cname varchar2(50),
+                                dname varchar2(50),
+                                job varchar2(50),
+                                cmref number(6) not null, 
+                                constraint company_idx_FK foreign key(cmref) 
                                 references contact(pidx)
                                 )
 ;                      
 
 create table contact_cafe   (
                             pidx number(6) constraint cf_idx_pk primary key,
-                            cn_cf_cafename varchar2(50),
-                            cn_cf_nickname varchar2(50),
-                            cf_ref number(6) not null, 
-                            constraint cafe_idx_FK foreign key(cf_ref) 
+                            cfname varchar2(50),
+                            nickname varchar2(50),
+                            cfref number(6) not null, 
+                            constraint cafe_idx_FK foreign key(cfref) 
                             references contact(pidx)
                             )
 ;                      
 
 create table contact_family (
                             pidx number(6) constraint fm_idx_pk primary key,
-                            cn_fm_relationship varchar2(50),
-                            fm_ref number(6) not null, 
-                            constraint family_idx_FK foreign key(fm_ref) 
+                            relationship varchar2(50),
+                            fmref number(6) not null, 
+                            constraint family_idx_FK foreign key(fmref) 
                             references contact(pidx)
                             )
 ;                      
+create sequence contact_pidx_seq
+increment by 1
+start with 0
+minvalue 0
+;
+
+drop table contact_basic;
+drop table contact_univ;
+drop table contact_company;
+drop table contact_cafe;
+drop table contact_family;
+
+drop SEQUENCE contact_pidx_seq;
+select * from contact_basic order by pidx;
 
 --2. DEPT 테이블에 데이터를 삽입하는 SQL을 작성하시오. 입력 데이터는 임의로 작성하시오.
 insert into dept values (60, 'PROGRAMER', 'SEOUL');
